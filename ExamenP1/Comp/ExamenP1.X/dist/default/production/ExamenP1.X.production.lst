@@ -1,0 +1,1858 @@
+
+
+Microchip MPLAB XC8 Assembler V2.45 build 20230818022343 
+                                                                                               Thu Feb 08 18:12:19 2024
+
+Microchip MPLAB XC8 C Compiler v2.45 (Free license) build 20230818022343 Og1 
+     1                           	processor	18F4550
+     2                           	fnconf	rparam,??,?,0
+     3                           	pagewidth 120
+     4                           	opt	flic
+     5                           	psect	idataCOMRAM,global,class=CODE,delta=1,noexec
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     8                           	psect	dataCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     9                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+    10                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    11                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    12                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    13                           	psect	text3,global,reloc=2,class=CODE,delta=1
+    14                           	psect	smallconst,global,reloc=2,class=SMALLCONST,delta=1,noexec
+    15                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    16                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    17                           	psect	config,global,abs,ovrld,class=CONFIG,space=4,delta=1,noexec
+    18   000000                     
+    19                           ; Generated 23/03/2023 GMT
+    20                           ; 
+    21                           ; Copyright © 2023, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    22                           ; All rights reserved.
+    23                           ; 
+    24                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    25                           ; 
+    26                           ; Redistribution and use in source and binary forms, with or without modification, are
+    27                           ; permitted provided that the following conditions are met:
+    28                           ; 
+    29                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    30                           ;        conditions and the following disclaimer.
+    31                           ; 
+    32                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    33                           ;        of conditions and the following disclaimer in the documentation and/or other
+    34                           ;        materials provided with the distribution. Publication is not required when
+    35                           ;        this file is used in an embedded application.
+    36                           ; 
+    37                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    38                           ;        software without specific prior written permission.
+    39                           ; 
+    40                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    41                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    42                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    43                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    44                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    45                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    46                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    47                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    48                           ; 
+    49                           ; 
+    50                           ; Code-generator required, PIC18F4550 Definitions
+    51                           ; 
+    52                           ; SFR Addresses
+    53   000000                     
+    54                           	psect	idataCOMRAM
+    55   000E54                     __pidataCOMRAM:
+    56                           	callstack 0
+    57                           
+    58                           ;initializer for _DELAY
+    59   000E54  0064               	dw	100
+    60   000000                     _LATB	set	3978
+    61   000000                     _LATD	set	3980
+    62   000000                     _PORTAbits	set	3968
+    63   000000                     _LATBbits	set	3978
+    64   000000                     _LATDbits	set	3980
+    65   000000                     _PORTCbits	set	3970
+    66   000000                     _TRISA	set	3986
+    67   000000                     _ADCON1	set	4033
+    68   000000                     _TRISD	set	3989
+    69   000000                     _TRISC	set	3988
+    70   000000                     _TRISB	set	3987
+    71                           
+    72                           ; #config settings
+    73                           
+    74                           	psect	cinit
+    75   000E2A                     __pcinit:
+    76                           	callstack 0
+    77   000E2A                     start_initialization:
+    78                           	callstack 0
+    79   000E2A                     __initialization:
+    80                           	callstack 0
+    81                           
+    82                           ; Initialize objects allocated to COMRAM (2 bytes)
+    83                           ; load TBLPTR registers with __pidataCOMRAM
+    84   000E2A  0E54               	movlw	low __pidataCOMRAM
+    85   000E2C  6EF6               	movwf	tblptrl,c
+    86   000E2E  0E0E               	movlw	high __pidataCOMRAM
+    87   000E30  6EF7               	movwf	tblptrh,c
+    88   000E32  0E00               	movlw	low (__pidataCOMRAM shr (0+16))
+    89   000E34  6EF8               	movwf	tblptru,c
+    90   000E36  0009               	tblrd		*+	;fetch initializer
+    91   000E38  CFF5 F00D          	movff	tablat,__pdataCOMRAM
+    92   000E3C  0009               	tblrd		*+	;fetch initializer
+    93   000E3E  CFF5 F00E          	movff	tablat,__pdataCOMRAM+1
+    94                           
+    95                           ; Clear objects allocated to COMRAM (6 bytes)
+    96   000E42  6A06               	clrf	(__pbssCOMRAM+5)& (0+255),c
+    97   000E44  6A05               	clrf	(__pbssCOMRAM+4)& (0+255),c
+    98   000E46  6A04               	clrf	(__pbssCOMRAM+3)& (0+255),c
+    99   000E48  6A03               	clrf	(__pbssCOMRAM+2)& (0+255),c
+   100   000E4A  6A02               	clrf	(__pbssCOMRAM+1)& (0+255),c
+   101   000E4C  6A01               	clrf	__pbssCOMRAM& (0+255),c
+   102   000E4E                     end_of_initialization:
+   103                           	callstack 0
+   104   000E4E                     __end_of__initialization:
+   105                           	callstack 0
+   106   000E4E  0100               	movlb	0
+   107   000E50  EFFA  F006         	goto	_main	;jump to C main() function
+   108                           
+   109                           	psect	bssCOMRAM
+   110   000001                     __pbssCOMRAM:
+   111                           	callstack 0
+   112   000001                     _DPSW:
+   113                           	callstack 0
+   114   000001                     	ds	2
+   115   000003                     _num2:
+   116                           	callstack 0
+   117   000003                     	ds	2
+   118   000005                     _num1:
+   119                           	callstack 0
+   120   000005                     	ds	2
+   121                           
+   122                           	psect	dataCOMRAM
+   123   00000D                     __pdataCOMRAM:
+   124                           	callstack 0
+   125   00000D                     _DELAY:
+   126                           	callstack 0
+   127   00000D                     	ds	2
+   128                           
+   129                           	psect	cstackCOMRAM
+   130   000007                     __pcstackCOMRAM:
+   131                           	callstack 0
+   132   000007                     ??_corridorp1:
+   133   000007                     ??_corridorp2:
+   134   000007                     
+   135                           ; 2 bytes @ 0x0
+   136   000007                     	ds	2
+   137   000009                     ??_gamelogic:
+   138                           
+   139                           ; 1 bytes @ 0x2
+   140   000009                     	ds	2
+   141   00000B                     ??_main:
+   142                           
+   143                           ; 1 bytes @ 0x4
+   144   00000B                     	ds	2
+   145                           
+   146 ;;
+   147 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
+   148 ;;
+   149 ;; *************** function _main *****************
+   150 ;; Defined at:
+   151 ;;		line 219 in file "main.c"
+   152 ;; Parameters:    Size  Location     Type
+   153 ;;		None
+   154 ;; Auto vars:     Size  Location     Type
+   155 ;;		None
+   156 ;; Return value:  Size  Location     Type
+   157 ;;                  1    wreg      void 
+   158 ;; Registers used:
+   159 ;;		wreg, status,2, status,0, cstack
+   160 ;; Tracked objects:
+   161 ;;		On entry : 0/0
+   162 ;;		On exit  : 0/0
+   163 ;;		Unchanged: 0/0
+   164 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   165 ;;      Params:         0       0       0       0       0       0       0       0       0
+   166 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   167 ;;      Temps:          2       0       0       0       0       0       0       0       0
+   168 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   169 ;;Total ram usage:        2 bytes
+   170 ;; Hardware stack levels required when called: 2
+   171 ;; This function calls:
+   172 ;;		_gamelogic
+   173 ;; This function is called by:
+   174 ;;		Startup code after reset
+   175 ;; This function uses a non-reentrant model
+   176 ;;
+   177                           
+   178                           	psect	text0
+   179   000DF4                     __ptext0:
+   180                           	callstack 0
+   181   000DF4                     _main:
+   182                           	callstack 29
+   183   000DF4                     
+   184                           ;main.c: 220:     ADCON1 = 0X0F;
+   185   000DF4  0E0F               	movlw	15
+   186   000DF6  6EC1               	movwf	193,c	;volatile
+   187                           
+   188                           ;main.c: 221:     TRISA = 1;
+   189   000DF8  0E01               	movlw	1
+   190   000DFA  6E92               	movwf	146,c	;volatile
+   191                           
+   192                           ;main.c: 222:     TRISB = 0;
+   193   000DFC  0E00               	movlw	0
+   194   000DFE  6E93               	movwf	147,c	;volatile
+   195                           
+   196                           ;main.c: 223:     TRISC = 1;
+   197   000E00  0E01               	movlw	1
+   198   000E02  6E94               	movwf	148,c	;volatile
+   199                           
+   200                           ;main.c: 224:     TRISD = 0;
+   201   000E04  0E00               	movlw	0
+   202   000E06  6E95               	movwf	149,c	;volatile
+   203   000E08                     l1029:
+   204                           
+   205                           ;main.c: 227:         gamelogic();
+   206   000E08  EC01  F004         	call	_gamelogic	;wreg free
+   207   000E0C                     
+   208                           ;main.c: 228:         _delay((unsigned long)((3000)*(20000000/4000.0)));
+   209   000E0C  0E4D               	movlw	77
+   210   000E0E  6E0C               	movwf	(??_main+1)^0,c
+   211   000E10  0E19               	movlw	25
+   212   000E12  6E0B               	movwf	??_main^0,c
+   213   000E14  0E50               	movlw	80
+   214   000E16                     u597:
+   215   000E16  2EE8               	decfsz	wreg,f,c
+   216   000E18  D7FE               	bra	u597
+   217   000E1A  2E0B               	decfsz	??_main^0,f,c
+   218   000E1C  D7FC               	bra	u597
+   219   000E1E  2E0C               	decfsz	(??_main+1)^0,f,c
+   220   000E20  D7FA               	bra	u597
+   221   000E22  EF04  F007         	goto	l1029
+   222   000E26  EF00  F000         	goto	start
+   223   000E2A                     __end_of_main:
+   224                           	callstack 0
+   225                           
+   226 ;; *************** function _gamelogic *****************
+   227 ;; Defined at:
+   228 ;;		line 156 in file "main.c"
+   229 ;; Parameters:    Size  Location     Type
+   230 ;;		None
+   231 ;; Auto vars:     Size  Location     Type
+   232 ;;		None
+   233 ;; Return value:  Size  Location     Type
+   234 ;;                  1    wreg      void 
+   235 ;; Registers used:
+   236 ;;		wreg, status,2, status,0, cstack
+   237 ;; Tracked objects:
+   238 ;;		On entry : 0/0
+   239 ;;		On exit  : 0/0
+   240 ;;		Unchanged: 0/0
+   241 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   242 ;;      Params:         0       0       0       0       0       0       0       0       0
+   243 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   244 ;;      Temps:          2       0       0       0       0       0       0       0       0
+   245 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   246 ;;Total ram usage:        2 bytes
+   247 ;; Hardware stack levels used: 1
+   248 ;; Hardware stack levels required when called: 1
+   249 ;; This function calls:
+   250 ;;		_corridorp1
+   251 ;;		_corridorp2
+   252 ;; This function is called by:
+   253 ;;		_main
+   254 ;; This function uses a non-reentrant model
+   255 ;;
+   256                           
+   257                           	psect	text1
+   258   000802                     __ptext1:
+   259                           	callstack 0
+   260   000802                     _gamelogic:
+   261                           	callstack 29
+   262   000802                     
+   263                           ;main.c: 157:     if (PORTAbits.RA0 == 1){
+   264   000802  A080               	btfss	128,0,c	;volatile
+   265   000804  EF06  F004         	goto	u11
+   266   000808  EF08  F004         	goto	u10
+   267   00080C                     u11:
+   268   00080C  EF0C  F004         	goto	l41
+   269   000810                     u10:
+   270   000810                     
+   271                           ;main.c: 158:         DPSW++;
+   272   000810  4A01               	infsnz	_DPSW^0,f,c
+   273   000812  2A02               	incf	(_DPSW+1)^0,f,c
+   274                           
+   275                           ;main.c: 159:     } else if (PORTAbits.RA0 == 0){
+   276   000814  EF19  F004         	goto	l971
+   277   000818                     l41:
+   278   000818  B080               	btfsc	128,0,c	;volatile
+   279   00081A  EF11  F004         	goto	u21
+   280   00081E  EF13  F004         	goto	u20
+   281   000822                     u21:
+   282   000822  EF19  F004         	goto	l971
+   283   000826                     u20:
+   284   000826                     
+   285                           ;main.c: 160:         DPSW = DPSW - 1;
+   286   000826  0EFF               	movlw	255
+   287   000828  2401               	addwf	_DPSW^0,w,c
+   288   00082A  6E01               	movwf	_DPSW^0,c
+   289   00082C  0EFF               	movlw	255
+   290   00082E  2002               	addwfc	(_DPSW+1)^0,w,c
+   291   000830  6E02               	movwf	(_DPSW+1)^0,c
+   292   000832                     l971:
+   293                           
+   294                           ;main.c: 162:     if (PORTAbits.RA1 == 1){
+   295   000832  A280               	btfss	128,1,c	;volatile
+   296   000834  EF1E  F004         	goto	u31
+   297   000838  EF20  F004         	goto	u30
+   298   00083C                     u31:
+   299   00083C  EF24  F004         	goto	l44
+   300   000840                     u30:
+   301   000840                     
+   302                           ;main.c: 163:         DPSW++;
+   303   000840  4A01               	infsnz	_DPSW^0,f,c
+   304   000842  2A02               	incf	(_DPSW+1)^0,f,c
+   305                           
+   306                           ;main.c: 164:     } else if (PORTAbits.RA1 == 0){
+   307   000844  EF31  F004         	goto	l977
+   308   000848                     l44:
+   309   000848  B280               	btfsc	128,1,c	;volatile
+   310   00084A  EF29  F004         	goto	u41
+   311   00084E  EF2B  F004         	goto	u40
+   312   000852                     u41:
+   313   000852  EF31  F004         	goto	l977
+   314   000856                     u40:
+   315   000856                     
+   316                           ;main.c: 165:         DPSW = DPSW - 1;
+   317   000856  0EFF               	movlw	255
+   318   000858  2401               	addwf	_DPSW^0,w,c
+   319   00085A  6E01               	movwf	_DPSW^0,c
+   320   00085C  0EFF               	movlw	255
+   321   00085E  2002               	addwfc	(_DPSW+1)^0,w,c
+   322   000860  6E02               	movwf	(_DPSW+1)^0,c
+   323   000862                     l977:
+   324                           
+   325                           ;main.c: 167:     if (PORTAbits.RA2 == 1){
+   326   000862  A480               	btfss	128,2,c	;volatile
+   327   000864  EF36  F004         	goto	u51
+   328   000868  EF38  F004         	goto	u50
+   329   00086C                     u51:
+   330   00086C  EF3C  F004         	goto	l47
+   331   000870                     u50:
+   332   000870                     
+   333                           ;main.c: 168:         DPSW++;
+   334   000870  4A01               	infsnz	_DPSW^0,f,c
+   335   000872  2A02               	incf	(_DPSW+1)^0,f,c
+   336                           
+   337                           ;main.c: 169:     } else if (PORTAbits.RA2 == 0){
+   338   000874  EF49  F004         	goto	l48
+   339   000878                     l47:
+   340   000878  B480               	btfsc	128,2,c	;volatile
+   341   00087A  EF41  F004         	goto	u61
+   342   00087E  EF43  F004         	goto	u60
+   343   000882                     u61:
+   344   000882  EF49  F004         	goto	l48
+   345   000886                     u60:
+   346   000886                     
+   347                           ;main.c: 170:         DPSW = DPSW - 1;
+   348   000886  0EFF               	movlw	255
+   349   000888  2401               	addwf	_DPSW^0,w,c
+   350   00088A  6E01               	movwf	_DPSW^0,c
+   351   00088C  0EFF               	movlw	255
+   352   00088E  2002               	addwfc	(_DPSW+1)^0,w,c
+   353   000890  6E02               	movwf	(_DPSW+1)^0,c
+   354   000892                     l48:
+   355                           
+   356                           ;main.c: 173:     if(DPSW == 1){
+   357   000892  0401               	decf	_DPSW^0,w,c
+   358   000894  1002               	iorwf	(_DPSW+1)^0,w,c
+   359   000896  A4D8               	btfss	status,2,c
+   360   000898  EF50  F004         	goto	u71
+   361   00089C  EF52  F004         	goto	u70
+   362   0008A0                     u71:
+   363   0008A0  EFEE  F004         	goto	l1019
+   364   0008A4                     u70:
+   365   0008A4                     
+   366                           ;main.c: 174:         if(PORTAbits.RA0 == 1){
+   367   0008A4  A080               	btfss	128,0,c	;volatile
+   368   0008A6  EF57  F004         	goto	u81
+   369   0008AA  EF59  F004         	goto	u80
+   370   0008AE                     u81:
+   371   0008AE  EF9F  F004         	goto	l1001
+   372   0008B2                     u80:
+   373   0008B2                     
+   374                           ;main.c: 175:             if (PORTCbits.RC0 == 0){
+   375   0008B2  B082               	btfsc	130,0,c	;volatile
+   376   0008B4  EF5E  F004         	goto	u91
+   377   0008B8  EF60  F004         	goto	u90
+   378   0008BC                     u91:
+   379   0008BC  EF69  F004         	goto	l52
+   380   0008C0                     u90:
+   381   0008C0                     
+   382                           ;main.c: 176:                 corridorp1();
+   383   0008C0  EC06  F006         	call	_corridorp1	;wreg free
+   384   0008C4                     l53:
+   385   0008C4  A082               	btfss	130,0,c	;volatile
+   386   0008C6  EF67  F004         	goto	u101
+   387   0008CA  EF69  F004         	goto	u100
+   388   0008CE                     u101:
+   389   0008CE  EF62  F004         	goto	l53
+   390   0008D2                     u100:
+   391   0008D2                     l52:
+   392                           
+   393                           ;main.c: 179:             if (PORTCbits.RC1 == 0){
+   394   0008D2  B282               	btfsc	130,1,c	;volatile
+   395   0008D4  EF6E  F004         	goto	u111
+   396   0008D8  EF70  F004         	goto	u110
+   397   0008DC                     u111:
+   398   0008DC  EF79  F004         	goto	l991
+   399   0008E0                     u110:
+   400   0008E0                     
+   401                           ;main.c: 180:                 corridorp2();
+   402   0008E0  EC12  F005         	call	_corridorp2	;wreg free
+   403   0008E4                     l57:
+   404   0008E4  A282               	btfss	130,1,c	;volatile
+   405   0008E6  EF77  F004         	goto	u121
+   406   0008EA  EF79  F004         	goto	u120
+   407   0008EE                     u121:
+   408   0008EE  EF72  F004         	goto	l57
+   409   0008F2                     u120:
+   410   0008F2                     l991:
+   411                           
+   412                           ;main.c: 183:             if (num1<num2){
+   413   0008F2  5003               	movf	_num2^0,w,c
+   414   0008F4  5C05               	subwf	_num1^0,w,c
+   415   0008F6  5006               	movf	(_num1+1)^0,w,c
+   416   0008F8  0A80               	xorlw	128
+   417   0008FA  6E09               	movwf	??_gamelogic^0,c
+   418   0008FC  5004               	movf	(_num2+1)^0,w,c
+   419   0008FE  0A80               	xorlw	128
+   420   000900  5809               	subwfb	??_gamelogic^0,w,c
+   421   000902  B0D8               	btfsc	status,0,c
+   422   000904  EF86  F004         	goto	u131
+   423   000908  EF88  F004         	goto	u130
+   424   00090C                     u131:
+   425   00090C  EF8B  F004         	goto	l995
+   426   000910                     u130:
+   427   000910                     
+   428                           ;main.c: 184:                 LATDbits.LD0 = 1;
+   429   000910  808C               	bsf	140,0,c	;volatile
+   430                           
+   431                           ;main.c: 185:             } else if (num1>num2){
+   432   000912  EF9F  F004         	goto	l1001
+   433   000916                     l995:
+   434   000916  5005               	movf	_num1^0,w,c
+   435   000918  5C03               	subwf	_num2^0,w,c
+   436   00091A  5004               	movf	(_num2+1)^0,w,c
+   437   00091C  0A80               	xorlw	128
+   438   00091E  6E09               	movwf	??_gamelogic^0,c
+   439   000920  5006               	movf	(_num1+1)^0,w,c
+   440   000922  0A80               	xorlw	128
+   441   000924  5809               	subwfb	??_gamelogic^0,w,c
+   442   000926  B0D8               	btfsc	status,0,c
+   443   000928  EF98  F004         	goto	u141
+   444   00092C  EF9A  F004         	goto	u140
+   445   000930                     u141:
+   446   000930  EF9D  F004         	goto	l999
+   447   000934                     u140:
+   448   000934                     
+   449                           ;main.c: 186:                 LATDbits.LD1 = 1;
+   450   000934  828C               	bsf	140,1,c	;volatile
+   451                           
+   452                           ;main.c: 187:             } else {
+   453   000936  EF9F  F004         	goto	l1001
+   454   00093A                     l999:
+   455                           
+   456                           ;main.c: 188:                 LATD = 1;
+   457   00093A  0E01               	movlw	1
+   458   00093C  6E8C               	movwf	140,c	;volatile
+   459   00093E                     l1001:
+   460                           
+   461                           ;main.c: 191:         if(PORTAbits.RA2 == 1){
+   462   00093E  A480               	btfss	128,2,c	;volatile
+   463   000940  EFA4  F004         	goto	u151
+   464   000944  EFA6  F004         	goto	u150
+   465   000948                     u151:
+   466   000948  EF11  F005         	goto	l81
+   467   00094C                     u150:
+   468   00094C                     
+   469                           ;main.c: 192:             if (PORTCbits.RC0 == 0){
+   470   00094C  B082               	btfsc	130,0,c	;volatile
+   471   00094E  EFAB  F004         	goto	u161
+   472   000952  EFAD  F004         	goto	u160
+   473   000956                     u161:
+   474   000956  EFB6  F004         	goto	l65
+   475   00095A                     u160:
+   476   00095A                     
+   477                           ;main.c: 193:                 corridorp1();
+   478   00095A  EC06  F006         	call	_corridorp1	;wreg free
+   479   00095E                     l66:
+   480   00095E  A082               	btfss	130,0,c	;volatile
+   481   000960  EFB4  F004         	goto	u171
+   482   000964  EFB6  F004         	goto	u170
+   483   000968                     u171:
+   484   000968  EFAF  F004         	goto	l66
+   485   00096C                     u170:
+   486   00096C                     l65:
+   487                           
+   488                           ;main.c: 196:             if (PORTCbits.RC1 == 0){
+   489   00096C  B282               	btfsc	130,1,c	;volatile
+   490   00096E  EFBB  F004         	goto	u181
+   491   000972  EFBD  F004         	goto	u180
+   492   000976                     u181:
+   493   000976  EFC6  F004         	goto	l1009
+   494   00097A                     u180:
+   495   00097A                     
+   496                           ;main.c: 197:                 corridorp2();
+   497   00097A  EC12  F005         	call	_corridorp2	;wreg free
+   498   00097E                     l70:
+   499   00097E  A282               	btfss	130,1,c	;volatile
+   500   000980  EFC4  F004         	goto	u191
+   501   000984  EFC6  F004         	goto	u190
+   502   000988                     u191:
+   503   000988  EFBF  F004         	goto	l70
+   504   00098C                     u190:
+   505   00098C                     l1009:
+   506                           
+   507                           ;main.c: 200:             if (num1>num2){
+   508   00098C  5005               	movf	_num1^0,w,c
+   509   00098E  5C03               	subwf	_num2^0,w,c
+   510   000990  5004               	movf	(_num2+1)^0,w,c
+   511   000992  0A80               	xorlw	128
+   512   000994  6E09               	movwf	??_gamelogic^0,c
+   513   000996  5006               	movf	(_num1+1)^0,w,c
+   514   000998  0A80               	xorlw	128
+   515   00099A  5809               	subwfb	??_gamelogic^0,w,c
+   516   00099C  B0D8               	btfsc	status,0,c
+   517   00099E  EFD3  F004         	goto	u201
+   518   0009A2  EFD5  F004         	goto	u200
+   519   0009A6                     u201:
+   520   0009A6  EFD8  F004         	goto	l1013
+   521   0009AA                     u200:
+   522   0009AA                     
+   523                           ;main.c: 201:                 LATDbits.LD0 = 1;
+   524   0009AA  808C               	bsf	140,0,c	;volatile
+   525                           
+   526                           ;main.c: 202:             } else if (num1<num2){
+   527   0009AC  EF11  F005         	goto	l81
+   528   0009B0                     l1013:
+   529   0009B0  5003               	movf	_num2^0,w,c
+   530   0009B2  5C05               	subwf	_num1^0,w,c
+   531   0009B4  5006               	movf	(_num1+1)^0,w,c
+   532   0009B6  0A80               	xorlw	128
+   533   0009B8  6E09               	movwf	??_gamelogic^0,c
+   534   0009BA  5004               	movf	(_num2+1)^0,w,c
+   535   0009BC  0A80               	xorlw	128
+   536   0009BE  5809               	subwfb	??_gamelogic^0,w,c
+   537   0009C0  B0D8               	btfsc	status,0,c
+   538   0009C2  EFE5  F004         	goto	u211
+   539   0009C6  EFE7  F004         	goto	u210
+   540   0009CA                     u211:
+   541   0009CA  EFEA  F004         	goto	l1017
+   542   0009CE                     u210:
+   543   0009CE                     
+   544                           ;main.c: 203:                 LATDbits.LD1 = 1;
+   545   0009CE  828C               	bsf	140,1,c	;volatile
+   546                           
+   547                           ;main.c: 204:             } else {
+   548   0009D0  EF11  F005         	goto	l81
+   549   0009D4                     l1017:
+   550                           
+   551                           ;main.c: 205:                 LATD = 1;
+   552   0009D4  0E01               	movlw	1
+   553   0009D6  6E8C               	movwf	140,c	;volatile
+   554   0009D8  EF11  F005         	goto	l81
+   555   0009DC                     l1019:
+   556                           
+   557                           ;main.c: 209:         LATB = 1;
+   558   0009DC  0E01               	movlw	1
+   559   0009DE  6E8A               	movwf	138,c	;volatile
+   560   0009E0                     
+   561                           ;main.c: 210:         _delay((unsigned long)((400)*(20000000/4000.0)));
+   562   0009E0  0E0B               	movlw	11
+   563   0009E2  6E0A               	movwf	(??_gamelogic+1)^0,c
+   564   0009E4  0E26               	movlw	38
+   565   0009E6  6E09               	movwf	??_gamelogic^0,c
+   566   0009E8  0E5E               	movlw	94
+   567   0009EA                     u607:
+   568   0009EA  2EE8               	decfsz	wreg,f,c
+   569   0009EC  D7FE               	bra	u607
+   570   0009EE  2E09               	decfsz	??_gamelogic^0,f,c
+   571   0009F0  D7FC               	bra	u607
+   572   0009F2  2E0A               	decfsz	(??_gamelogic+1)^0,f,c
+   573   0009F4  D7FA               	bra	u607
+   574   0009F6                     
+   575                           ;main.c: 211:         LATB = 0;
+   576   0009F6  0E00               	movlw	0
+   577   0009F8  6E8A               	movwf	138,c	;volatile
+   578                           
+   579                           ;main.c: 212:         _delay((unsigned long)((400)*(20000000/4000.0)));
+   580   0009FA  0E0B               	movlw	11
+   581   0009FC  6E0A               	movwf	(??_gamelogic+1)^0,c
+   582   0009FE  0E26               	movlw	38
+   583   000A00  6E09               	movwf	??_gamelogic^0,c
+   584   000A02  0E5E               	movlw	94
+   585   000A04                     u617:
+   586   000A04  2EE8               	decfsz	wreg,f,c
+   587   000A06  D7FE               	bra	u617
+   588   000A08  2E09               	decfsz	??_gamelogic^0,f,c
+   589   000A0A  D7FC               	bra	u617
+   590   000A0C  2E0A               	decfsz	(??_gamelogic+1)^0,f,c
+   591   000A0E  D7FA               	bra	u617
+   592   000A10                     l1025:
+   593   000A10  0401               	decf	_DPSW^0,w,c
+   594   000A12  1002               	iorwf	(_DPSW+1)^0,w,c
+   595   000A14  A4D8               	btfss	status,2,c
+   596   000A16  EF0F  F005         	goto	u221
+   597   000A1A  EF11  F005         	goto	u220
+   598   000A1E                     u221:
+   599   000A1E  EF08  F005         	goto	l1025
+   600   000A22                     u220:
+   601   000A22                     l81:
+   602   000A22  0012               	return		;funcret
+   603   000A24                     __end_of_gamelogic:
+   604                           	callstack 0
+   605                           
+   606 ;; *************** function _corridorp2 *****************
+   607 ;; Defined at:
+   608 ;;		line 93 in file "main.c"
+   609 ;; Parameters:    Size  Location     Type
+   610 ;;		None
+   611 ;; Auto vars:     Size  Location     Type
+   612 ;;		None
+   613 ;; Return value:  Size  Location     Type
+   614 ;;                  2   37[None  ] int 
+   615 ;; Registers used:
+   616 ;;		wreg, status,2
+   617 ;; Tracked objects:
+   618 ;;		On entry : 0/0
+   619 ;;		On exit  : 0/0
+   620 ;;		Unchanged: 0/0
+   621 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   622 ;;      Params:         0       0       0       0       0       0       0       0       0
+   623 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   624 ;;      Temps:          2       0       0       0       0       0       0       0       0
+   625 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   626 ;;Total ram usage:        2 bytes
+   627 ;; Hardware stack levels used: 1
+   628 ;; This function calls:
+   629 ;;		Nothing
+   630 ;; This function is called by:
+   631 ;;		_gamelogic
+   632 ;; This function uses a non-reentrant model
+   633 ;;
+   634                           
+   635                           	psect	text2
+   636   000A24                     __ptext2:
+   637                           	callstack 0
+   638   000A24                     _corridorp2:
+   639                           	callstack 29
+   640   000A24                     
+   641                           ;main.c: 94:         LATBbits.LB0=1;
+   642   000A24  808A               	bsf	138,0,c	;volatile
+   643   000A26                     
+   644                           ;main.c: 95:         num2 = 1;
+   645   000A26  0E00               	movlw	0
+   646   000A28  6E04               	movwf	(_num2+1)^0,c
+   647   000A2A  0E01               	movlw	1
+   648   000A2C  6E03               	movwf	_num2^0,c
+   649   000A2E                     
+   650                           ;main.c: 96:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+   651   000A2E  0E03               	movlw	3
+   652   000A30  6E08               	movwf	(??_corridorp2+1)^0,c
+   653   000A32  0E8A               	movlw	138
+   654   000A34  6E07               	movwf	??_corridorp2^0,c
+   655   000A36  0E56               	movlw	86
+   656   000A38                     u627:
+   657   000A38  2EE8               	decfsz	wreg,f,c
+   658   000A3A  D7FE               	bra	u627
+   659   000A3C  2E07               	decfsz	??_corridorp2^0,f,c
+   660   000A3E  D7FC               	bra	u627
+   661   000A40  2E08               	decfsz	(??_corridorp2+1)^0,f,c
+   662   000A42  D7FA               	bra	u627
+   663   000A44                     
+   664                           ;main.c: 97:         LATBbits.LB0=0;
+   665   000A44  908A               	bcf	138,0,c	;volatile
+   666   000A46                     
+   667                           ;main.c: 98:         LATBbits.LB1=1;
+   668   000A46  828A               	bsf	138,1,c	;volatile
+   669   000A48                     
+   670                           ;main.c: 99:         num2 = 2;
+   671   000A48  0E00               	movlw	0
+   672   000A4A  6E04               	movwf	(_num2+1)^0,c
+   673   000A4C  0E02               	movlw	2
+   674   000A4E  6E03               	movwf	_num2^0,c
+   675                           
+   676                           ;main.c: 100:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+   677   000A50  0E03               	movlw	3
+   678   000A52  6E08               	movwf	(??_corridorp2+1)^0,c
+   679   000A54  0E8A               	movlw	138
+   680   000A56  6E07               	movwf	??_corridorp2^0,c
+   681   000A58  0E56               	movlw	86
+   682   000A5A                     u637:
+   683   000A5A  2EE8               	decfsz	wreg,f,c
+   684   000A5C  D7FE               	bra	u637
+   685   000A5E  2E07               	decfsz	??_corridorp2^0,f,c
+   686   000A60  D7FC               	bra	u637
+   687   000A62  2E08               	decfsz	(??_corridorp2+1)^0,f,c
+   688   000A64  D7FA               	bra	u637
+   689   000A66                     
+   690                           ;main.c: 101:         LATBbits.LB1=0;
+   691   000A66  928A               	bcf	138,1,c	;volatile
+   692   000A68                     
+   693                           ;main.c: 102:         LATBbits.LB2=1;
+   694   000A68  848A               	bsf	138,2,c	;volatile
+   695   000A6A                     
+   696                           ;main.c: 103:         num2 = 3;
+   697   000A6A  0E00               	movlw	0
+   698   000A6C  6E04               	movwf	(_num2+1)^0,c
+   699   000A6E  0E03               	movlw	3
+   700   000A70  6E03               	movwf	_num2^0,c
+   701   000A72                     
+   702                           ;main.c: 104:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+   703   000A72  0E03               	movlw	3
+   704   000A74  6E08               	movwf	(??_corridorp2+1)^0,c
+   705   000A76  0E8A               	movlw	138
+   706   000A78  6E07               	movwf	??_corridorp2^0,c
+   707   000A7A  0E56               	movlw	86
+   708   000A7C                     u647:
+   709   000A7C  2EE8               	decfsz	wreg,f,c
+   710   000A7E  D7FE               	bra	u647
+   711   000A80  2E07               	decfsz	??_corridorp2^0,f,c
+   712   000A82  D7FC               	bra	u647
+   713   000A84  2E08               	decfsz	(??_corridorp2+1)^0,f,c
+   714   000A86  D7FA               	bra	u647
+   715   000A88                     
+   716                           ;main.c: 105:         LATBbits.LB2=0;
+   717   000A88  948A               	bcf	138,2,c	;volatile
+   718   000A8A                     
+   719                           ;main.c: 106:         LATBbits.LB3=1;
+   720   000A8A  868A               	bsf	138,3,c	;volatile
+   721                           
+   722                           ;main.c: 107:         num2 = 4;
+   723   000A8C  0E00               	movlw	0
+   724   000A8E  6E04               	movwf	(_num2+1)^0,c
+   725   000A90  0E04               	movlw	4
+   726   000A92  6E03               	movwf	_num2^0,c
+   727   000A94                     
+   728                           ;main.c: 108:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+   729   000A94  0E03               	movlw	3
+   730   000A96  6E08               	movwf	(??_corridorp2+1)^0,c
+   731   000A98  0E8A               	movlw	138
+   732   000A9A  6E07               	movwf	??_corridorp2^0,c
+   733   000A9C  0E56               	movlw	86
+   734   000A9E                     u657:
+   735   000A9E  2EE8               	decfsz	wreg,f,c
+   736   000AA0  D7FE               	bra	u657
+   737   000AA2  2E07               	decfsz	??_corridorp2^0,f,c
+   738   000AA4  D7FC               	bra	u657
+   739   000AA6  2E08               	decfsz	(??_corridorp2+1)^0,f,c
+   740   000AA8  D7FA               	bra	u657
+   741   000AAA                     
+   742                           ;main.c: 109:         LATBbits.LB3=0;
+   743   000AAA  968A               	bcf	138,3,c	;volatile
+   744   000AAC                     
+   745                           ;main.c: 110:         LATBbits.LB4=1;
+   746   000AAC  888A               	bsf	138,4,c	;volatile
+   747   000AAE                     
+   748                           ;main.c: 111:         num2 = 5;
+   749   000AAE  0E00               	movlw	0
+   750   000AB0  6E04               	movwf	(_num2+1)^0,c
+   751   000AB2  0E05               	movlw	5
+   752   000AB4  6E03               	movwf	_num2^0,c
+   753                           
+   754                           ;main.c: 112:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+   755   000AB6  0E03               	movlw	3
+   756   000AB8  6E08               	movwf	(??_corridorp2+1)^0,c
+   757   000ABA  0E8A               	movlw	138
+   758   000ABC  6E07               	movwf	??_corridorp2^0,c
+   759   000ABE  0E56               	movlw	86
+   760   000AC0                     u667:
+   761   000AC0  2EE8               	decfsz	wreg,f,c
+   762   000AC2  D7FE               	bra	u667
+   763   000AC4  2E07               	decfsz	??_corridorp2^0,f,c
+   764   000AC6  D7FC               	bra	u667
+   765   000AC8  2E08               	decfsz	(??_corridorp2+1)^0,f,c
+   766   000ACA  D7FA               	bra	u667
+   767   000ACC                     
+   768                           ;main.c: 113:         LATBbits.LB4=0;
+   769   000ACC  988A               	bcf	138,4,c	;volatile
+   770   000ACE                     
+   771                           ;main.c: 114:         LATBbits.LB5=1;
+   772   000ACE  8A8A               	bsf	138,5,c	;volatile
+   773   000AD0                     
+   774                           ;main.c: 115:         num2 = 6;
+   775   000AD0  0E00               	movlw	0
+   776   000AD2  6E04               	movwf	(_num2+1)^0,c
+   777   000AD4  0E06               	movlw	6
+   778   000AD6  6E03               	movwf	_num2^0,c
+   779   000AD8                     
+   780                           ;main.c: 116:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+   781   000AD8  0E03               	movlw	3
+   782   000ADA  6E08               	movwf	(??_corridorp2+1)^0,c
+   783   000ADC  0E8A               	movlw	138
+   784   000ADE  6E07               	movwf	??_corridorp2^0,c
+   785   000AE0  0E56               	movlw	86
+   786   000AE2                     u677:
+   787   000AE2  2EE8               	decfsz	wreg,f,c
+   788   000AE4  D7FE               	bra	u677
+   789   000AE6  2E07               	decfsz	??_corridorp2^0,f,c
+   790   000AE8  D7FC               	bra	u677
+   791   000AEA  2E08               	decfsz	(??_corridorp2+1)^0,f,c
+   792   000AEC  D7FA               	bra	u677
+   793   000AEE                     
+   794                           ;main.c: 117:         LATBbits.LB5=0;
+   795   000AEE  9A8A               	bcf	138,5,c	;volatile
+   796   000AF0                     
+   797                           ;main.c: 118:         LATBbits.LB6=1;
+   798   000AF0  8C8A               	bsf	138,6,c	;volatile
+   799                           
+   800                           ;main.c: 119:         num2 = 7;
+   801   000AF2  0E00               	movlw	0
+   802   000AF4  6E04               	movwf	(_num2+1)^0,c
+   803   000AF6  0E07               	movlw	7
+   804   000AF8  6E03               	movwf	_num2^0,c
+   805   000AFA                     
+   806                           ;main.c: 120:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+   807   000AFA  0E03               	movlw	3
+   808   000AFC  6E08               	movwf	(??_corridorp2+1)^0,c
+   809   000AFE  0E8A               	movlw	138
+   810   000B00  6E07               	movwf	??_corridorp2^0,c
+   811   000B02  0E56               	movlw	86
+   812   000B04                     u687:
+   813   000B04  2EE8               	decfsz	wreg,f,c
+   814   000B06  D7FE               	bra	u687
+   815   000B08  2E07               	decfsz	??_corridorp2^0,f,c
+   816   000B0A  D7FC               	bra	u687
+   817   000B0C  2E08               	decfsz	(??_corridorp2+1)^0,f,c
+   818   000B0E  D7FA               	bra	u687
+   819   000B10                     
+   820                           ;main.c: 121:         LATBbits.LB6=0;
+   821   000B10  9C8A               	bcf	138,6,c	;volatile
+   822   000B12                     
+   823                           ;main.c: 122:         LATBbits.LB7=1;
+   824   000B12  8E8A               	bsf	138,7,c	;volatile
+   825   000B14                     
+   826                           ;main.c: 123:         num2 = 8;
+   827   000B14  0E00               	movlw	0
+   828   000B16  6E04               	movwf	(_num2+1)^0,c
+   829   000B18  0E08               	movlw	8
+   830   000B1A  6E03               	movwf	_num2^0,c
+   831                           
+   832                           ;main.c: 124:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+   833   000B1C  0E03               	movlw	3
+   834   000B1E  6E08               	movwf	(??_corridorp2+1)^0,c
+   835   000B20  0E8A               	movlw	138
+   836   000B22  6E07               	movwf	??_corridorp2^0,c
+   837   000B24  0E56               	movlw	86
+   838   000B26                     u697:
+   839   000B26  2EE8               	decfsz	wreg,f,c
+   840   000B28  D7FE               	bra	u697
+   841   000B2A  2E07               	decfsz	??_corridorp2^0,f,c
+   842   000B2C  D7FC               	bra	u697
+   843   000B2E  2E08               	decfsz	(??_corridorp2+1)^0,f,c
+   844   000B30  D7FA               	bra	u697
+   845   000B32                     
+   846                           ;main.c: 125:         LATBbits.LB7=0;
+   847   000B32  9E8A               	bcf	138,7,c	;volatile
+   848   000B34                     
+   849                           ;main.c: 126:         LATBbits.LB6=1;
+   850   000B34  8C8A               	bsf	138,6,c	;volatile
+   851   000B36                     
+   852                           ;main.c: 127:         num2 = 7;
+   853   000B36  0E00               	movlw	0
+   854   000B38  6E04               	movwf	(_num2+1)^0,c
+   855   000B3A  0E07               	movlw	7
+   856   000B3C  6E03               	movwf	_num2^0,c
+   857   000B3E                     
+   858                           ;main.c: 128:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+   859   000B3E  0E03               	movlw	3
+   860   000B40  6E08               	movwf	(??_corridorp2+1)^0,c
+   861   000B42  0E8A               	movlw	138
+   862   000B44  6E07               	movwf	??_corridorp2^0,c
+   863   000B46  0E56               	movlw	86
+   864   000B48                     u707:
+   865   000B48  2EE8               	decfsz	wreg,f,c
+   866   000B4A  D7FE               	bra	u707
+   867   000B4C  2E07               	decfsz	??_corridorp2^0,f,c
+   868   000B4E  D7FC               	bra	u707
+   869   000B50  2E08               	decfsz	(??_corridorp2+1)^0,f,c
+   870   000B52  D7FA               	bra	u707
+   871   000B54                     
+   872                           ;main.c: 129:         LATBbits.LB6=0;
+   873   000B54  9C8A               	bcf	138,6,c	;volatile
+   874   000B56                     
+   875                           ;main.c: 130:         LATBbits.LB5=1;
+   876   000B56  8A8A               	bsf	138,5,c	;volatile
+   877                           
+   878                           ;main.c: 131:         num2 = 6;
+   879   000B58  0E00               	movlw	0
+   880   000B5A  6E04               	movwf	(_num2+1)^0,c
+   881   000B5C  0E06               	movlw	6
+   882   000B5E  6E03               	movwf	_num2^0,c
+   883   000B60                     
+   884                           ;main.c: 132:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+   885   000B60  0E03               	movlw	3
+   886   000B62  6E08               	movwf	(??_corridorp2+1)^0,c
+   887   000B64  0E8A               	movlw	138
+   888   000B66  6E07               	movwf	??_corridorp2^0,c
+   889   000B68  0E56               	movlw	86
+   890   000B6A                     u717:
+   891   000B6A  2EE8               	decfsz	wreg,f,c
+   892   000B6C  D7FE               	bra	u717
+   893   000B6E  2E07               	decfsz	??_corridorp2^0,f,c
+   894   000B70  D7FC               	bra	u717
+   895   000B72  2E08               	decfsz	(??_corridorp2+1)^0,f,c
+   896   000B74  D7FA               	bra	u717
+   897   000B76                     
+   898                           ;main.c: 133:         LATBbits.LB5=0;
+   899   000B76  9A8A               	bcf	138,5,c	;volatile
+   900   000B78                     
+   901                           ;main.c: 134:         LATBbits.LB4=1;
+   902   000B78  888A               	bsf	138,4,c	;volatile
+   903   000B7A                     
+   904                           ;main.c: 135:         num2 = 5;
+   905   000B7A  0E00               	movlw	0
+   906   000B7C  6E04               	movwf	(_num2+1)^0,c
+   907   000B7E  0E05               	movlw	5
+   908   000B80  6E03               	movwf	_num2^0,c
+   909                           
+   910                           ;main.c: 136:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+   911   000B82  0E03               	movlw	3
+   912   000B84  6E08               	movwf	(??_corridorp2+1)^0,c
+   913   000B86  0E8A               	movlw	138
+   914   000B88  6E07               	movwf	??_corridorp2^0,c
+   915   000B8A  0E56               	movlw	86
+   916   000B8C                     u727:
+   917   000B8C  2EE8               	decfsz	wreg,f,c
+   918   000B8E  D7FE               	bra	u727
+   919   000B90  2E07               	decfsz	??_corridorp2^0,f,c
+   920   000B92  D7FC               	bra	u727
+   921   000B94  2E08               	decfsz	(??_corridorp2+1)^0,f,c
+   922   000B96  D7FA               	bra	u727
+   923   000B98                     
+   924                           ;main.c: 137:         LATBbits.LB4=0;
+   925   000B98  988A               	bcf	138,4,c	;volatile
+   926   000B9A                     
+   927                           ;main.c: 138:         LATBbits.LB3=1;
+   928   000B9A  868A               	bsf	138,3,c	;volatile
+   929   000B9C                     
+   930                           ;main.c: 139:         num2 = 4;
+   931   000B9C  0E00               	movlw	0
+   932   000B9E  6E04               	movwf	(_num2+1)^0,c
+   933   000BA0  0E04               	movlw	4
+   934   000BA2  6E03               	movwf	_num2^0,c
+   935   000BA4                     
+   936                           ;main.c: 140:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+   937   000BA4  0E03               	movlw	3
+   938   000BA6  6E08               	movwf	(??_corridorp2+1)^0,c
+   939   000BA8  0E8A               	movlw	138
+   940   000BAA  6E07               	movwf	??_corridorp2^0,c
+   941   000BAC  0E56               	movlw	86
+   942   000BAE                     u737:
+   943   000BAE  2EE8               	decfsz	wreg,f,c
+   944   000BB0  D7FE               	bra	u737
+   945   000BB2  2E07               	decfsz	??_corridorp2^0,f,c
+   946   000BB4  D7FC               	bra	u737
+   947   000BB6  2E08               	decfsz	(??_corridorp2+1)^0,f,c
+   948   000BB8  D7FA               	bra	u737
+   949   000BBA                     
+   950                           ;main.c: 141:         LATBbits.LB3=0;
+   951   000BBA  968A               	bcf	138,3,c	;volatile
+   952   000BBC                     
+   953                           ;main.c: 142:         LATBbits.LB2=1;
+   954   000BBC  848A               	bsf	138,2,c	;volatile
+   955                           
+   956                           ;main.c: 143:         num2 = 3;
+   957   000BBE  0E00               	movlw	0
+   958   000BC0  6E04               	movwf	(_num2+1)^0,c
+   959   000BC2  0E03               	movlw	3
+   960   000BC4  6E03               	movwf	_num2^0,c
+   961   000BC6                     
+   962                           ;main.c: 144:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+   963   000BC6  0E03               	movlw	3
+   964   000BC8  6E08               	movwf	(??_corridorp2+1)^0,c
+   965   000BCA  0E8A               	movlw	138
+   966   000BCC  6E07               	movwf	??_corridorp2^0,c
+   967   000BCE  0E56               	movlw	86
+   968   000BD0                     u747:
+   969   000BD0  2EE8               	decfsz	wreg,f,c
+   970   000BD2  D7FE               	bra	u747
+   971   000BD4  2E07               	decfsz	??_corridorp2^0,f,c
+   972   000BD6  D7FC               	bra	u747
+   973   000BD8  2E08               	decfsz	(??_corridorp2+1)^0,f,c
+   974   000BDA  D7FA               	bra	u747
+   975   000BDC                     
+   976                           ;main.c: 145:         LATBbits.LB2=0;
+   977   000BDC  948A               	bcf	138,2,c	;volatile
+   978   000BDE                     
+   979                           ;main.c: 146:         LATBbits.LB1=1;
+   980   000BDE  828A               	bsf	138,1,c	;volatile
+   981   000BE0                     
+   982                           ;main.c: 147:         num2 = 2;
+   983   000BE0  0E00               	movlw	0
+   984   000BE2  6E04               	movwf	(_num2+1)^0,c
+   985   000BE4  0E02               	movlw	2
+   986   000BE6  6E03               	movwf	_num2^0,c
+   987                           
+   988                           ;main.c: 148:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+   989   000BE8  0E03               	movlw	3
+   990   000BEA  6E08               	movwf	(??_corridorp2+1)^0,c
+   991   000BEC  0E8A               	movlw	138
+   992   000BEE  6E07               	movwf	??_corridorp2^0,c
+   993   000BF0  0E56               	movlw	86
+   994   000BF2                     u757:
+   995   000BF2  2EE8               	decfsz	wreg,f,c
+   996   000BF4  D7FE               	bra	u757
+   997   000BF6  2E07               	decfsz	??_corridorp2^0,f,c
+   998   000BF8  D7FC               	bra	u757
+   999   000BFA  2E08               	decfsz	(??_corridorp2+1)^0,f,c
+  1000   000BFC  D7FA               	bra	u757
+  1001   000BFE                     
+  1002                           ;main.c: 149:         LATBbits.LB1=0;
+  1003   000BFE  928A               	bcf	138,1,c	;volatile
+  1004   000C00                     
+  1005                           ;main.c: 150:         LATBbits.LB0=1;
+  1006   000C00  808A               	bsf	138,0,c	;volatile
+  1007   000C02                     
+  1008                           ;main.c: 151:         num2 = 1;
+  1009   000C02  0E00               	movlw	0
+  1010   000C04  6E04               	movwf	(_num2+1)^0,c
+  1011   000C06  0E01               	movlw	1
+  1012   000C08  6E03               	movwf	_num2^0,c
+  1013   000C0A  0012               	return		;funcret
+  1014   000C0C                     __end_of_corridorp2:
+  1015                           	callstack 0
+  1016                           
+  1017 ;; *************** function _corridorp1 *****************
+  1018 ;; Defined at:
+  1019 ;;		line 30 in file "main.c"
+  1020 ;; Parameters:    Size  Location     Type
+  1021 ;;		None
+  1022 ;; Auto vars:     Size  Location     Type
+  1023 ;;		None
+  1024 ;; Return value:  Size  Location     Type
+  1025 ;;                  2   34[None  ] int 
+  1026 ;; Registers used:
+  1027 ;;		wreg, status,2
+  1028 ;; Tracked objects:
+  1029 ;;		On entry : 0/0
+  1030 ;;		On exit  : 0/0
+  1031 ;;		Unchanged: 0/0
+  1032 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1033 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1034 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1035 ;;      Temps:          2       0       0       0       0       0       0       0       0
+  1036 ;;      Totals:         2       0       0       0       0       0       0       0       0
+  1037 ;;Total ram usage:        2 bytes
+  1038 ;; Hardware stack levels used: 1
+  1039 ;; This function calls:
+  1040 ;;		Nothing
+  1041 ;; This function is called by:
+  1042 ;;		_gamelogic
+  1043 ;; This function uses a non-reentrant model
+  1044 ;;
+  1045                           
+  1046                           	psect	text3
+  1047   000C0C                     __ptext3:
+  1048                           	callstack 0
+  1049   000C0C                     _corridorp1:
+  1050                           	callstack 29
+  1051   000C0C                     
+  1052                           ;main.c: 31:         LATBbits.LB0=1;
+  1053   000C0C  808A               	bsf	138,0,c	;volatile
+  1054   000C0E                     
+  1055                           ;main.c: 32:         num1 = 1;
+  1056   000C0E  0E00               	movlw	0
+  1057   000C10  6E06               	movwf	(_num1+1)^0,c
+  1058   000C12  0E01               	movlw	1
+  1059   000C14  6E05               	movwf	_num1^0,c
+  1060   000C16                     
+  1061                           ;main.c: 33:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+  1062   000C16  0E03               	movlw	3
+  1063   000C18  6E08               	movwf	(??_corridorp1+1)^0,c
+  1064   000C1A  0E8A               	movlw	138
+  1065   000C1C  6E07               	movwf	??_corridorp1^0,c
+  1066   000C1E  0E56               	movlw	86
+  1067   000C20                     u767:
+  1068   000C20  2EE8               	decfsz	wreg,f,c
+  1069   000C22  D7FE               	bra	u767
+  1070   000C24  2E07               	decfsz	??_corridorp1^0,f,c
+  1071   000C26  D7FC               	bra	u767
+  1072   000C28  2E08               	decfsz	(??_corridorp1+1)^0,f,c
+  1073   000C2A  D7FA               	bra	u767
+  1074   000C2C                     
+  1075                           ;main.c: 34:         LATBbits.LB0=0;
+  1076   000C2C  908A               	bcf	138,0,c	;volatile
+  1077   000C2E                     
+  1078                           ;main.c: 35:         LATBbits.LB1=1;
+  1079   000C2E  828A               	bsf	138,1,c	;volatile
+  1080   000C30                     
+  1081                           ;main.c: 36:         num1 = 2;
+  1082   000C30  0E00               	movlw	0
+  1083   000C32  6E06               	movwf	(_num1+1)^0,c
+  1084   000C34  0E02               	movlw	2
+  1085   000C36  6E05               	movwf	_num1^0,c
+  1086                           
+  1087                           ;main.c: 37:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+  1088   000C38  0E03               	movlw	3
+  1089   000C3A  6E08               	movwf	(??_corridorp1+1)^0,c
+  1090   000C3C  0E8A               	movlw	138
+  1091   000C3E  6E07               	movwf	??_corridorp1^0,c
+  1092   000C40  0E56               	movlw	86
+  1093   000C42                     u777:
+  1094   000C42  2EE8               	decfsz	wreg,f,c
+  1095   000C44  D7FE               	bra	u777
+  1096   000C46  2E07               	decfsz	??_corridorp1^0,f,c
+  1097   000C48  D7FC               	bra	u777
+  1098   000C4A  2E08               	decfsz	(??_corridorp1+1)^0,f,c
+  1099   000C4C  D7FA               	bra	u777
+  1100   000C4E                     
+  1101                           ;main.c: 38:         LATBbits.LB1=0;
+  1102   000C4E  928A               	bcf	138,1,c	;volatile
+  1103   000C50                     
+  1104                           ;main.c: 39:         LATBbits.LB2=1;
+  1105   000C50  848A               	bsf	138,2,c	;volatile
+  1106   000C52                     
+  1107                           ;main.c: 40:         num1 = 3;
+  1108   000C52  0E00               	movlw	0
+  1109   000C54  6E06               	movwf	(_num1+1)^0,c
+  1110   000C56  0E03               	movlw	3
+  1111   000C58  6E05               	movwf	_num1^0,c
+  1112   000C5A                     
+  1113                           ;main.c: 41:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+  1114   000C5A  0E03               	movlw	3
+  1115   000C5C  6E08               	movwf	(??_corridorp1+1)^0,c
+  1116   000C5E  0E8A               	movlw	138
+  1117   000C60  6E07               	movwf	??_corridorp1^0,c
+  1118   000C62  0E56               	movlw	86
+  1119   000C64                     u787:
+  1120   000C64  2EE8               	decfsz	wreg,f,c
+  1121   000C66  D7FE               	bra	u787
+  1122   000C68  2E07               	decfsz	??_corridorp1^0,f,c
+  1123   000C6A  D7FC               	bra	u787
+  1124   000C6C  2E08               	decfsz	(??_corridorp1+1)^0,f,c
+  1125   000C6E  D7FA               	bra	u787
+  1126   000C70                     
+  1127                           ;main.c: 42:         LATBbits.LB2=0;
+  1128   000C70  948A               	bcf	138,2,c	;volatile
+  1129   000C72                     
+  1130                           ;main.c: 43:         LATBbits.LB3=1;
+  1131   000C72  868A               	bsf	138,3,c	;volatile
+  1132                           
+  1133                           ;main.c: 44:         num1 = 4;
+  1134   000C74  0E00               	movlw	0
+  1135   000C76  6E06               	movwf	(_num1+1)^0,c
+  1136   000C78  0E04               	movlw	4
+  1137   000C7A  6E05               	movwf	_num1^0,c
+  1138   000C7C                     
+  1139                           ;main.c: 45:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+  1140   000C7C  0E03               	movlw	3
+  1141   000C7E  6E08               	movwf	(??_corridorp1+1)^0,c
+  1142   000C80  0E8A               	movlw	138
+  1143   000C82  6E07               	movwf	??_corridorp1^0,c
+  1144   000C84  0E56               	movlw	86
+  1145   000C86                     u797:
+  1146   000C86  2EE8               	decfsz	wreg,f,c
+  1147   000C88  D7FE               	bra	u797
+  1148   000C8A  2E07               	decfsz	??_corridorp1^0,f,c
+  1149   000C8C  D7FC               	bra	u797
+  1150   000C8E  2E08               	decfsz	(??_corridorp1+1)^0,f,c
+  1151   000C90  D7FA               	bra	u797
+  1152   000C92                     
+  1153                           ;main.c: 46:         LATBbits.LB3=0;
+  1154   000C92  968A               	bcf	138,3,c	;volatile
+  1155   000C94                     
+  1156                           ;main.c: 47:         LATBbits.LB4=1;
+  1157   000C94  888A               	bsf	138,4,c	;volatile
+  1158   000C96                     
+  1159                           ;main.c: 48:         num1 = 5;
+  1160   000C96  0E00               	movlw	0
+  1161   000C98  6E06               	movwf	(_num1+1)^0,c
+  1162   000C9A  0E05               	movlw	5
+  1163   000C9C  6E05               	movwf	_num1^0,c
+  1164                           
+  1165                           ;main.c: 49:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+  1166   000C9E  0E03               	movlw	3
+  1167   000CA0  6E08               	movwf	(??_corridorp1+1)^0,c
+  1168   000CA2  0E8A               	movlw	138
+  1169   000CA4  6E07               	movwf	??_corridorp1^0,c
+  1170   000CA6  0E56               	movlw	86
+  1171   000CA8                     u807:
+  1172   000CA8  2EE8               	decfsz	wreg,f,c
+  1173   000CAA  D7FE               	bra	u807
+  1174   000CAC  2E07               	decfsz	??_corridorp1^0,f,c
+  1175   000CAE  D7FC               	bra	u807
+  1176   000CB0  2E08               	decfsz	(??_corridorp1+1)^0,f,c
+  1177   000CB2  D7FA               	bra	u807
+  1178   000CB4                     
+  1179                           ;main.c: 50:         LATBbits.LB4=0;
+  1180   000CB4  988A               	bcf	138,4,c	;volatile
+  1181   000CB6                     
+  1182                           ;main.c: 51:         LATBbits.LB5=1;
+  1183   000CB6  8A8A               	bsf	138,5,c	;volatile
+  1184   000CB8                     
+  1185                           ;main.c: 52:         num1 = 6;
+  1186   000CB8  0E00               	movlw	0
+  1187   000CBA  6E06               	movwf	(_num1+1)^0,c
+  1188   000CBC  0E06               	movlw	6
+  1189   000CBE  6E05               	movwf	_num1^0,c
+  1190   000CC0                     
+  1191                           ;main.c: 53:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+  1192   000CC0  0E03               	movlw	3
+  1193   000CC2  6E08               	movwf	(??_corridorp1+1)^0,c
+  1194   000CC4  0E8A               	movlw	138
+  1195   000CC6  6E07               	movwf	??_corridorp1^0,c
+  1196   000CC8  0E56               	movlw	86
+  1197   000CCA                     u817:
+  1198   000CCA  2EE8               	decfsz	wreg,f,c
+  1199   000CCC  D7FE               	bra	u817
+  1200   000CCE  2E07               	decfsz	??_corridorp1^0,f,c
+  1201   000CD0  D7FC               	bra	u817
+  1202   000CD2  2E08               	decfsz	(??_corridorp1+1)^0,f,c
+  1203   000CD4  D7FA               	bra	u817
+  1204   000CD6                     
+  1205                           ;main.c: 54:         LATBbits.LB5=0;
+  1206   000CD6  9A8A               	bcf	138,5,c	;volatile
+  1207   000CD8                     
+  1208                           ;main.c: 55:         LATBbits.LB6=1;
+  1209   000CD8  8C8A               	bsf	138,6,c	;volatile
+  1210                           
+  1211                           ;main.c: 56:         num1 = 7;
+  1212   000CDA  0E00               	movlw	0
+  1213   000CDC  6E06               	movwf	(_num1+1)^0,c
+  1214   000CDE  0E07               	movlw	7
+  1215   000CE0  6E05               	movwf	_num1^0,c
+  1216   000CE2                     
+  1217                           ;main.c: 57:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+  1218   000CE2  0E03               	movlw	3
+  1219   000CE4  6E08               	movwf	(??_corridorp1+1)^0,c
+  1220   000CE6  0E8A               	movlw	138
+  1221   000CE8  6E07               	movwf	??_corridorp1^0,c
+  1222   000CEA  0E56               	movlw	86
+  1223   000CEC                     u827:
+  1224   000CEC  2EE8               	decfsz	wreg,f,c
+  1225   000CEE  D7FE               	bra	u827
+  1226   000CF0  2E07               	decfsz	??_corridorp1^0,f,c
+  1227   000CF2  D7FC               	bra	u827
+  1228   000CF4  2E08               	decfsz	(??_corridorp1+1)^0,f,c
+  1229   000CF6  D7FA               	bra	u827
+  1230   000CF8                     
+  1231                           ;main.c: 58:         LATBbits.LB6=0;
+  1232   000CF8  9C8A               	bcf	138,6,c	;volatile
+  1233   000CFA                     
+  1234                           ;main.c: 59:         LATBbits.LB7=1;
+  1235   000CFA  8E8A               	bsf	138,7,c	;volatile
+  1236   000CFC                     
+  1237                           ;main.c: 60:         num1 = 8;
+  1238   000CFC  0E00               	movlw	0
+  1239   000CFE  6E06               	movwf	(_num1+1)^0,c
+  1240   000D00  0E08               	movlw	8
+  1241   000D02  6E05               	movwf	_num1^0,c
+  1242                           
+  1243                           ;main.c: 61:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+  1244   000D04  0E03               	movlw	3
+  1245   000D06  6E08               	movwf	(??_corridorp1+1)^0,c
+  1246   000D08  0E8A               	movlw	138
+  1247   000D0A  6E07               	movwf	??_corridorp1^0,c
+  1248   000D0C  0E56               	movlw	86
+  1249   000D0E                     u837:
+  1250   000D0E  2EE8               	decfsz	wreg,f,c
+  1251   000D10  D7FE               	bra	u837
+  1252   000D12  2E07               	decfsz	??_corridorp1^0,f,c
+  1253   000D14  D7FC               	bra	u837
+  1254   000D16  2E08               	decfsz	(??_corridorp1+1)^0,f,c
+  1255   000D18  D7FA               	bra	u837
+  1256   000D1A                     
+  1257                           ;main.c: 62:         LATBbits.LB7=0;
+  1258   000D1A  9E8A               	bcf	138,7,c	;volatile
+  1259   000D1C                     
+  1260                           ;main.c: 63:         LATBbits.LB6=1;
+  1261   000D1C  8C8A               	bsf	138,6,c	;volatile
+  1262   000D1E                     
+  1263                           ;main.c: 64:         num1 = 7;
+  1264   000D1E  0E00               	movlw	0
+  1265   000D20  6E06               	movwf	(_num1+1)^0,c
+  1266   000D22  0E07               	movlw	7
+  1267   000D24  6E05               	movwf	_num1^0,c
+  1268   000D26                     
+  1269                           ;main.c: 65:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+  1270   000D26  0E03               	movlw	3
+  1271   000D28  6E08               	movwf	(??_corridorp1+1)^0,c
+  1272   000D2A  0E8A               	movlw	138
+  1273   000D2C  6E07               	movwf	??_corridorp1^0,c
+  1274   000D2E  0E56               	movlw	86
+  1275   000D30                     u847:
+  1276   000D30  2EE8               	decfsz	wreg,f,c
+  1277   000D32  D7FE               	bra	u847
+  1278   000D34  2E07               	decfsz	??_corridorp1^0,f,c
+  1279   000D36  D7FC               	bra	u847
+  1280   000D38  2E08               	decfsz	(??_corridorp1+1)^0,f,c
+  1281   000D3A  D7FA               	bra	u847
+  1282   000D3C                     
+  1283                           ;main.c: 66:         LATBbits.LB6=0;
+  1284   000D3C  9C8A               	bcf	138,6,c	;volatile
+  1285   000D3E                     
+  1286                           ;main.c: 67:         LATBbits.LB5=1;
+  1287   000D3E  8A8A               	bsf	138,5,c	;volatile
+  1288                           
+  1289                           ;main.c: 68:         num1 = 6;
+  1290   000D40  0E00               	movlw	0
+  1291   000D42  6E06               	movwf	(_num1+1)^0,c
+  1292   000D44  0E06               	movlw	6
+  1293   000D46  6E05               	movwf	_num1^0,c
+  1294   000D48                     
+  1295                           ;main.c: 69:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+  1296   000D48  0E03               	movlw	3
+  1297   000D4A  6E08               	movwf	(??_corridorp1+1)^0,c
+  1298   000D4C  0E8A               	movlw	138
+  1299   000D4E  6E07               	movwf	??_corridorp1^0,c
+  1300   000D50  0E56               	movlw	86
+  1301   000D52                     u857:
+  1302   000D52  2EE8               	decfsz	wreg,f,c
+  1303   000D54  D7FE               	bra	u857
+  1304   000D56  2E07               	decfsz	??_corridorp1^0,f,c
+  1305   000D58  D7FC               	bra	u857
+  1306   000D5A  2E08               	decfsz	(??_corridorp1+1)^0,f,c
+  1307   000D5C  D7FA               	bra	u857
+  1308   000D5E                     
+  1309                           ;main.c: 70:         LATBbits.LB5=0;
+  1310   000D5E  9A8A               	bcf	138,5,c	;volatile
+  1311   000D60                     
+  1312                           ;main.c: 71:         LATBbits.LB4=1;
+  1313   000D60  888A               	bsf	138,4,c	;volatile
+  1314   000D62                     
+  1315                           ;main.c: 72:         num1 = 5;
+  1316   000D62  0E00               	movlw	0
+  1317   000D64  6E06               	movwf	(_num1+1)^0,c
+  1318   000D66  0E05               	movlw	5
+  1319   000D68  6E05               	movwf	_num1^0,c
+  1320                           
+  1321                           ;main.c: 73:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+  1322   000D6A  0E03               	movlw	3
+  1323   000D6C  6E08               	movwf	(??_corridorp1+1)^0,c
+  1324   000D6E  0E8A               	movlw	138
+  1325   000D70  6E07               	movwf	??_corridorp1^0,c
+  1326   000D72  0E56               	movlw	86
+  1327   000D74                     u867:
+  1328   000D74  2EE8               	decfsz	wreg,f,c
+  1329   000D76  D7FE               	bra	u867
+  1330   000D78  2E07               	decfsz	??_corridorp1^0,f,c
+  1331   000D7A  D7FC               	bra	u867
+  1332   000D7C  2E08               	decfsz	(??_corridorp1+1)^0,f,c
+  1333   000D7E  D7FA               	bra	u867
+  1334   000D80                     
+  1335                           ;main.c: 74:         LATBbits.LB4=0;
+  1336   000D80  988A               	bcf	138,4,c	;volatile
+  1337   000D82                     
+  1338                           ;main.c: 75:         LATBbits.LB3=1;
+  1339   000D82  868A               	bsf	138,3,c	;volatile
+  1340   000D84                     
+  1341                           ;main.c: 76:         num1 = 4;
+  1342   000D84  0E00               	movlw	0
+  1343   000D86  6E06               	movwf	(_num1+1)^0,c
+  1344   000D88  0E04               	movlw	4
+  1345   000D8A  6E05               	movwf	_num1^0,c
+  1346   000D8C                     
+  1347                           ;main.c: 77:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+  1348   000D8C  0E03               	movlw	3
+  1349   000D8E  6E08               	movwf	(??_corridorp1+1)^0,c
+  1350   000D90  0E8A               	movlw	138
+  1351   000D92  6E07               	movwf	??_corridorp1^0,c
+  1352   000D94  0E56               	movlw	86
+  1353   000D96                     u877:
+  1354   000D96  2EE8               	decfsz	wreg,f,c
+  1355   000D98  D7FE               	bra	u877
+  1356   000D9A  2E07               	decfsz	??_corridorp1^0,f,c
+  1357   000D9C  D7FC               	bra	u877
+  1358   000D9E  2E08               	decfsz	(??_corridorp1+1)^0,f,c
+  1359   000DA0  D7FA               	bra	u877
+  1360   000DA2                     
+  1361                           ;main.c: 78:         LATBbits.LB3=0;
+  1362   000DA2  968A               	bcf	138,3,c	;volatile
+  1363   000DA4                     
+  1364                           ;main.c: 79:         LATBbits.LB2=1;
+  1365   000DA4  848A               	bsf	138,2,c	;volatile
+  1366                           
+  1367                           ;main.c: 80:         num1 = 3;
+  1368   000DA6  0E00               	movlw	0
+  1369   000DA8  6E06               	movwf	(_num1+1)^0,c
+  1370   000DAA  0E03               	movlw	3
+  1371   000DAC  6E05               	movwf	_num1^0,c
+  1372   000DAE                     
+  1373                           ;main.c: 81:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+  1374   000DAE  0E03               	movlw	3
+  1375   000DB0  6E08               	movwf	(??_corridorp1+1)^0,c
+  1376   000DB2  0E8A               	movlw	138
+  1377   000DB4  6E07               	movwf	??_corridorp1^0,c
+  1378   000DB6  0E56               	movlw	86
+  1379   000DB8                     u887:
+  1380   000DB8  2EE8               	decfsz	wreg,f,c
+  1381   000DBA  D7FE               	bra	u887
+  1382   000DBC  2E07               	decfsz	??_corridorp1^0,f,c
+  1383   000DBE  D7FC               	bra	u887
+  1384   000DC0  2E08               	decfsz	(??_corridorp1+1)^0,f,c
+  1385   000DC2  D7FA               	bra	u887
+  1386   000DC4                     
+  1387                           ;main.c: 82:         LATBbits.LB2=0;
+  1388   000DC4  948A               	bcf	138,2,c	;volatile
+  1389   000DC6                     
+  1390                           ;main.c: 83:         LATBbits.LB1=1;
+  1391   000DC6  828A               	bsf	138,1,c	;volatile
+  1392   000DC8                     
+  1393                           ;main.c: 84:         num1 = 2;
+  1394   000DC8  0E00               	movlw	0
+  1395   000DCA  6E06               	movwf	(_num1+1)^0,c
+  1396   000DCC  0E02               	movlw	2
+  1397   000DCE  6E05               	movwf	_num1^0,c
+  1398                           
+  1399                           ;main.c: 85:         _delay((unsigned long)((DELAY)*(20000000/4000.0)));
+  1400   000DD0  0E03               	movlw	3
+  1401   000DD2  6E08               	movwf	(??_corridorp1+1)^0,c
+  1402   000DD4  0E8A               	movlw	138
+  1403   000DD6  6E07               	movwf	??_corridorp1^0,c
+  1404   000DD8  0E56               	movlw	86
+  1405   000DDA                     u897:
+  1406   000DDA  2EE8               	decfsz	wreg,f,c
+  1407   000DDC  D7FE               	bra	u897
+  1408   000DDE  2E07               	decfsz	??_corridorp1^0,f,c
+  1409   000DE0  D7FC               	bra	u897
+  1410   000DE2  2E08               	decfsz	(??_corridorp1+1)^0,f,c
+  1411   000DE4  D7FA               	bra	u897
+  1412   000DE6                     
+  1413                           ;main.c: 86:         LATBbits.LB1=0;
+  1414   000DE6  928A               	bcf	138,1,c	;volatile
+  1415   000DE8                     
+  1416                           ;main.c: 87:         LATBbits.LB0=1;
+  1417   000DE8  808A               	bsf	138,0,c	;volatile
+  1418   000DEA                     
+  1419                           ;main.c: 88:         num1 = 1;
+  1420   000DEA  0E00               	movlw	0
+  1421   000DEC  6E06               	movwf	(_num1+1)^0,c
+  1422   000DEE  0E01               	movlw	1
+  1423   000DF0  6E05               	movwf	_num1^0,c
+  1424   000DF2  0012               	return		;funcret
+  1425   000DF4                     __end_of_corridorp1:
+  1426                           	callstack 0
+  1427                           
+  1428                           	psect	smallconst
+  1429   000800                     __psmallconst:
+  1430                           	callstack 0
+  1431   000800  00                 	db	0
+  1432   000801  00                 	db	0	; dummy byte at the end
+  1433   000000                     
+  1434                           	psect	rparam
+  1435   000000                     
+  1436                           	psect	config
+  1437                           
+  1438                           ;Config register CONFIG1L @ 0x300000
+  1439                           ;	PLL Prescaler Selection bits
+  1440                           ;	PLLDIV = 1, No prescale (4 MHz oscillator input drives PLL directly)
+  1441                           ;	System Clock Postscaler Selection bits
+  1442                           ;	CPUDIV = OSC1_PLL2, [Primary Oscillator Src: /1][96 MHz PLL Src: /2]
+  1443                           ;	USB Clock Selection bit (used in Full-Speed USB mode only; UCFG:FSEN = 1)
+  1444                           ;	USBDIV = 1, USB clock source comes directly from the primary oscillator block with no 
+      +                          postscale
+  1445   300000                     	org	3145728
+  1446   300000  00                 	db	0
+  1447                           
+  1448                           ;Config register CONFIG1H @ 0x300001
+  1449                           ;	Oscillator Selection bits
+  1450                           ;	FOSC = HS, HS oscillator (HS)
+  1451                           ;	Fail-Safe Clock Monitor Enable bit
+  1452                           ;	FCMEN = OFF, Fail-Safe Clock Monitor disabled
+  1453                           ;	Internal/External Oscillator Switchover bit
+  1454                           ;	IESO = OFF, Oscillator Switchover mode disabled
+  1455   300001                     	org	3145729
+  1456   300001  0C                 	db	12
+  1457                           
+  1458                           ;Config register CONFIG2L @ 0x300002
+  1459                           ;	Power-up Timer Enable bit
+  1460                           ;	PWRT = OFF, PWRT disabled
+  1461                           ;	Brown-out Reset Enable bits
+  1462                           ;	BOR = ON, Brown-out Reset enabled in hardware only (SBOREN is disabled)
+  1463                           ;	Brown-out Reset Voltage bits
+  1464                           ;	BORV = 3, Minimum setting 2.05V
+  1465                           ;	USB Voltage Regulator Enable bit
+  1466                           ;	VREGEN = OFF, USB voltage regulator disabled
+  1467   300002                     	org	3145730
+  1468   300002  1F                 	db	31
+  1469                           
+  1470                           ;Config register CONFIG2H @ 0x300003
+  1471                           ;	Watchdog Timer Enable bit
+  1472                           ;	WDT = ON, WDT enabled
+  1473                           ;	Watchdog Timer Postscale Select bits
+  1474                           ;	WDTPS = 32768, 1:32768
+  1475   300003                     	org	3145731
+  1476   300003  1F                 	db	31
+  1477                           
+  1478                           ; Padding undefined space
+  1479   300004                     	org	3145732
+  1480   300004  FF                 	db	255
+  1481                           
+  1482                           ;Config register CONFIG3H @ 0x300005
+  1483                           ;	CCP2 MUX bit
+  1484                           ;	CCP2MX = ON, CCP2 input/output is multiplexed with RC1
+  1485                           ;	PORTB A/D Enable bit
+  1486                           ;	PBADEN = ON, PORTB<4:0> pins are configured as analog input channels on Reset
+  1487                           ;	Low-Power Timer 1 Oscillator Enable bit
+  1488                           ;	LPT1OSC = OFF, Timer1 configured for higher power operation
+  1489                           ;	MCLR Pin Enable bit
+  1490                           ;	MCLRE = ON, MCLR pin enabled; RE3 input pin disabled
+  1491   300005                     	org	3145733
+  1492   300005  83                 	db	131
+  1493                           
+  1494                           ;Config register CONFIG4L @ 0x300006
+  1495                           ;	Stack Full/Underflow Reset Enable bit
+  1496                           ;	STVREN = ON, Stack full/underflow will cause Reset
+  1497                           ;	Single-Supply ICSP Enable bit
+  1498                           ;	LVP = ON, Single-Supply ICSP enabled
+  1499                           ;	Dedicated In-Circuit Debug/Programming Port (ICPORT) Enable bit
+  1500                           ;	ICPRT = OFF, ICPORT disabled
+  1501                           ;	Extended Instruction Set Enable bit
+  1502                           ;	XINST = OFF, Instruction set extension and Indexed Addressing mode disabled (Legacy mo
+      +                          de)
+  1503                           ;	Background Debugger Enable bit
+  1504                           ;	DEBUG = 0x1, unprogrammed default
+  1505   300006                     	org	3145734
+  1506   300006  85                 	db	133
+  1507                           
+  1508                           ; Padding undefined space
+  1509   300007                     	org	3145735
+  1510   300007  FF                 	db	255
+  1511                           
+  1512                           ;Config register CONFIG5L @ 0x300008
+  1513                           ;	Code Protection bit
+  1514                           ;	CP0 = OFF, Block 0 (000800-001FFFh) is not code-protected
+  1515                           ;	Code Protection bit
+  1516                           ;	CP1 = OFF, Block 1 (002000-003FFFh) is not code-protected
+  1517                           ;	Code Protection bit
+  1518                           ;	CP2 = OFF, Block 2 (004000-005FFFh) is not code-protected
+  1519                           ;	Code Protection bit
+  1520                           ;	CP3 = OFF, Block 3 (006000-007FFFh) is not code-protected
+  1521   300008                     	org	3145736
+  1522   300008  0F                 	db	15
+  1523                           
+  1524                           ;Config register CONFIG5H @ 0x300009
+  1525                           ;	Boot Block Code Protection bit
+  1526                           ;	CPB = OFF, Boot block (000000-0007FFh) is not code-protected
+  1527                           ;	Data EEPROM Code Protection bit
+  1528                           ;	CPD = OFF, Data EEPROM is not code-protected
+  1529   300009                     	org	3145737
+  1530   300009  C0                 	db	192
+  1531                           
+  1532                           ;Config register CONFIG6L @ 0x30000A
+  1533                           ;	Write Protection bit
+  1534                           ;	WRT0 = OFF, Block 0 (000800-001FFFh) is not write-protected
+  1535                           ;	Write Protection bit
+  1536                           ;	WRT1 = OFF, Block 1 (002000-003FFFh) is not write-protected
+  1537                           ;	Write Protection bit
+  1538                           ;	WRT2 = OFF, Block 2 (004000-005FFFh) is not write-protected
+  1539                           ;	Write Protection bit
+  1540                           ;	WRT3 = OFF, Block 3 (006000-007FFFh) is not write-protected
+  1541   30000A                     	org	3145738
+  1542   30000A  0F                 	db	15
+  1543                           
+  1544                           ;Config register CONFIG6H @ 0x30000B
+  1545                           ;	Configuration Register Write Protection bit
+  1546                           ;	WRTC = OFF, Configuration registers (300000-3000FFh) are not write-protected
+  1547                           ;	Boot Block Write Protection bit
+  1548                           ;	WRTB = OFF, Boot block (000000-0007FFh) is not write-protected
+  1549                           ;	Data EEPROM Write Protection bit
+  1550                           ;	WRTD = OFF, Data EEPROM is not write-protected
+  1551   30000B                     	org	3145739
+  1552   30000B  E0                 	db	224
+  1553                           
+  1554                           ;Config register CONFIG7L @ 0x30000C
+  1555                           ;	Table Read Protection bit
+  1556                           ;	EBTR0 = OFF, Block 0 (000800-001FFFh) is not protected from table reads executed in ot
+      +                          her blocks
+  1557                           ;	Table Read Protection bit
+  1558                           ;	EBTR1 = OFF, Block 1 (002000-003FFFh) is not protected from table reads executed in ot
+      +                          her blocks
+  1559                           ;	Table Read Protection bit
+  1560                           ;	EBTR2 = OFF, Block 2 (004000-005FFFh) is not protected from table reads executed in ot
+      +                          her blocks
+  1561                           ;	Table Read Protection bit
+  1562                           ;	EBTR3 = OFF, Block 3 (006000-007FFFh) is not protected from table reads executed in ot
+      +                          her blocks
+  1563   30000C                     	org	3145740
+  1564   30000C  0F                 	db	15
+  1565                           
+  1566                           ;Config register CONFIG7H @ 0x30000D
+  1567                           ;	Boot Block Table Read Protection bit
+  1568                           ;	EBTRB = OFF, Boot block (000000-0007FFh) is not protected from table reads executed in
+      +                           other blocks
+  1569   30000D                     	org	3145741
+  1570   30000D  40                 	db	64
+  1571                           tosu	equ	0xFFF
+  1572                           tosh	equ	0xFFE
+  1573                           tosl	equ	0xFFD
+  1574                           stkptr	equ	0xFFC
+  1575                           pclatu	equ	0xFFB
+  1576                           pclath	equ	0xFFA
+  1577                           pcl	equ	0xFF9
+  1578                           tblptru	equ	0xFF8
+  1579                           tblptrh	equ	0xFF7
+  1580                           tblptrl	equ	0xFF6
+  1581                           tablat	equ	0xFF5
+  1582                           prodh	equ	0xFF4
+  1583                           prodl	equ	0xFF3
+  1584                           indf0	equ	0xFEF
+  1585                           postinc0	equ	0xFEE
+  1586                           postdec0	equ	0xFED
+  1587                           preinc0	equ	0xFEC
+  1588                           plusw0	equ	0xFEB
+  1589                           fsr0h	equ	0xFEA
+  1590                           fsr0l	equ	0xFE9
+  1591                           wreg	equ	0xFE8
+  1592                           indf1	equ	0xFE7
+  1593                           postinc1	equ	0xFE6
+  1594                           postdec1	equ	0xFE5
+  1595                           preinc1	equ	0xFE4
+  1596                           plusw1	equ	0xFE3
+  1597                           fsr1h	equ	0xFE2
+  1598                           fsr1l	equ	0xFE1
+  1599                           bsr	equ	0xFE0
+  1600                           indf2	equ	0xFDF
+  1601                           postinc2	equ	0xFDE
+  1602                           postdec2	equ	0xFDD
+  1603                           preinc2	equ	0xFDC
+  1604                           plusw2	equ	0xFDB
+  1605                           fsr2h	equ	0xFDA
+  1606                           fsr2l	equ	0xFD9
+  1607                           status	equ	0xFD8
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        2
+    BSS         6
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95      6      14
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMRAM
+
+    _main->_gamelogic
+    _gamelogic->_corridorp1
+    _gamelogic->_corridorp2
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 2     2      0       0
+                                              4 COMRAM     2     2      0
+                          _gamelogic
+ ---------------------------------------------------------------------------------
+ (1) _gamelogic                                            2     2      0       0
+                                              2 COMRAM     2     2      0
+                         _corridorp1
+                         _corridorp2
+ ---------------------------------------------------------------------------------
+ (2) _corridorp2                                           2     2      0       0
+                                              0 COMRAM     2     2      0
+ ---------------------------------------------------------------------------------
+ (2) _corridorp1                                           2     2      0       0
+                                              0 COMRAM     2     2      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 2
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _gamelogic
+     _corridorp1
+     _corridorp2
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             7FF      0       0      28        0.0%
+EEDATA             100      0       0       0        0.0%
+BITBANK7           100      0       0      18        0.0%
+BANK7              100      0       0      19        0.0%
+BITBANK6           100      0       0      16        0.0%
+BANK6              100      0       0      17        0.0%
+BITBANK5           100      0       0      14        0.0%
+BANK5              100      0       0      15        0.0%
+BITBANK4           100      0       0      12        0.0%
+BANK4              100      0       0      13        0.0%
+BITBANK3           100      0       0      10        0.0%
+BANK3              100      0       0      11        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITCOMRAM           5F      0       0       0        0.0%
+COMRAM              5F      6       E       1       14.7%
+BITBIGSFRhhh        3E      0       0      20        0.0%
+BITBIGSFRhhlh       2B      0       0      21        0.0%
+BITBIGSFRll         20      0       0      26        0.0%
+BITBIGSFRlhh         7      0       0      24        0.0%
+BITBIGSFRhhll        5      0       0      22        0.0%
+BITBIGSFRlhl         1      0       0      25        0.0%
+BITBIGSFRhl          1      0       0      23        0.0%
+BIGSFR               0      0       0     200        0.0%
+BITSFR               0      0       0     200        0.0%
+SFR                  0      0       0     200        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0       E      27        0.0%
+DATA                 0      0       E       3        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V2.45 build 20230818022343 
+Symbol Table                                                                                   Thu Feb 08 18:12:19 2024
+
+                     l41 0818                       l35 0DF2                       l52 08D2  
+                     l44 0848                       l53 08C4                       l38 0C0A  
+                     l70 097E                       l47 0878                       l48 0892  
+                     l65 096C                       l81 0A22                       l57 08E4  
+                     l66 095E                       u10 0810                       u11 080C  
+                     u20 0826                       u21 0822                       u30 0840  
+                     u31 083C                       u40 0856                       u41 0852  
+                     u50 0870                       u51 086C                       u60 0886  
+                     u61 0882                       u70 08A4                       u71 08A0  
+                     u80 08B2                       u81 08AE                       u90 08C0  
+                     u91 08BC                      l801 0CB8                      l811 0CF8  
+                    l803 0CC0                      l821 0D1E                      l813 0CFA  
+                    l805 0CD6                      l901 0AD0                      l831 0D5E  
+                    l823 0D26                      l815 0CFC                      l807 0CD8  
+                    l911 0B10                      l903 0AD8                      l841 0D84  
+                    l833 0D60                      l825 0D3C                      l817 0D1A  
+                    l809 0CE2                      l921 0B36                      l913 0B12  
+                    l905 0AEE                      l851 0DC4                      l843 0D8C  
+                    l835 0D62                      l827 0D3E                      l819 0D1C  
+                    l771 0C2C                      l931 0B76                      l923 0B3E  
+                    l915 0B14                      l907 0AF0                      l861 0DEA  
+                    l853 0DC6                      l845 0DA2                      l837 0D80  
+                    l829 0D48                      l781 0C52                      l773 0C2E  
+                    l765 0C0C                      l941 0B9C                      l933 0B78  
+                    l925 0B54                      l917 0B32                      l909 0AFA  
+                    l855 0DC8                      l847 0DA4                      l839 0D82  
+                    l791 0C92                      l783 0C5A                      l775 0C30  
+                    l767 0C0E                      l951 0BDC                      l943 0BA4  
+                    l935 0B7A                      l927 0B56                      l919 0B34  
+                    l871 0A44                      l857 0DE6                      l849 0DAE  
+                    l793 0C94                      l785 0C70                      l777 0C4E  
+                    l769 0C16                      l961 0C02                      l953 0BDE  
+                    l945 0BBA                      l937 0B98                      l929 0B60  
+                    l881 0A6A                      l873 0A46                      l865 0A24  
+                    l859 0DE8                      l795 0C96                      l787 0C72  
+                    l779 0C50                      l955 0BE0                      l947 0BBC  
+                    l939 0B9A                      l891 0AAA                      l883 0A72  
+                    l875 0A48                      l867 0A26                      l971 0832  
+                    l797 0CB4                      l789 0C7C                      l957 0BFE  
+                    l949 0BC6                      l893 0AAC                      l885 0A88  
+                    l877 0A66                      l869 0A2E                      l981 0886  
+                    l973 0840                      l965 0802                      l799 0CB6  
+                    l959 0C00                      l895 0AAE                      l887 0A8A  
+                    l879 0A68                      l991 08F2                      l983 08A4  
+                    l975 0856                      l967 0810                      l897 0ACC  
+                    l889 0A94                      l993 0910                      l985 08B2  
+                    l977 0862                      l969 0826                      l899 0ACE  
+                    l995 0916                      l987 08C0                      l979 0870  
+                    l997 0934                      l989 08E0                      l999 093A  
+                    u100 08D2                      u101 08CE                      u110 08E0  
+                    u111 08DC                      u200 09AA                      u120 08F2  
+                    u201 09A6                      u121 08EE                      u210 09CE  
+                    u130 0910                      u211 09CA                      u131 090C  
+                    u220 0A22                      u140 0934                      u221 0A1E  
+                    u141 0930                      u150 094C                      u151 0948  
+                    u160 095A                      u161 0956                      u170 096C  
+                    u171 0968                      u180 097A                      u181 0976  
+                    u190 098C                      u191 0988                      u607 09EA  
+                    u617 0A04                      u707 0B48                      u627 0A38  
+                    u717 0B6A                      u637 0A5A                      u807 0CA8  
+                    u727 0B8C                      u647 0A7C                      u817 0CCA  
+                    u737 0BAE                      u657 0A9E                      u827 0CEC  
+                    u747 0BD0                      u667 0AC0                      u837 0D0E  
+                    u757 0BF2                      u677 0AE2                      u597 0E16  
+                    u847 0D30                      u767 0C20                      u687 0B04  
+                    u857 0D52                      u777 0C42                      u697 0B26  
+                    u867 0D74                      u787 0C64                      u877 0D96  
+                    u797 0C86                      u887 0DB8                      u897 0DDA  
+                    wreg 0FE8                     l1001 093E                     l1011 09AA  
+                   l1003 094C                     l1021 09E0                     l1013 09B0  
+                   l1005 095A                     l1023 09F6                     l1015 09CE  
+                   l1007 097A                     l1031 0E0C                     l1025 0A10  
+                   l1017 09D4                     l1009 098C                     l1019 09DC  
+                   l1027 0DF4                     l1029 0E08                     _LATB 0F8A  
+                   _LATD 0F8C                     _DPSW 0001                     _main 0DF4  
+                   _num1 0005                     _num2 0003                     start 0000  
+           ___param_bank 0000                    ?_main 0007                    _DELAY 000D  
+                  _TRISA 0F92                    _TRISB 0F93                    _TRISC 0F94  
+                  _TRISD 0F95                    tablat 0FF5                    status 0FD8  
+        __initialization 0E2A             __end_of_main 0E2A                   ??_main 000B  
+          __activetblptr 0000                   _ADCON1 0FC1                   isa$std 0001  
+           __pdataCOMRAM 000D             __mediumconst 0000                   tblptrh 0FF7  
+                 tblptrl 0FF6                   tblptru 0FF8               __accesstop 0060  
+__end_of__initialization 0E4E            ___rparam_used 0001           __pcstackCOMRAM 0007  
+             _corridorp1 0C0C               _corridorp2 0A24        __end_of_gamelogic 0A24  
+                __Hparam 0000                  __Lparam 0000             __psmallconst 0800  
+                __pcinit 0E2A                  __ramtop 0800                  __ptext0 0DF4  
+                __ptext1 0802                  __ptext2 0A24                  __ptext3 0C0C  
+   end_of_initialization 0E4E                _PORTAbits 0F80                _PORTCbits 0F82  
+            ?_corridorp1 0007              ?_corridorp2 0007            __pidataCOMRAM 0E54  
+    start_initialization 0E2A              __pbssCOMRAM 0001                _gamelogic 0802  
+            __smallconst 0800                 _LATBbits 0F8A                 _LATDbits 0F8C  
+             ?_gamelogic 0007             ??_corridorp1 0007             ??_corridorp2 0007  
+               __Hrparam 0000                 __Lrparam 0000       __end_of_corridorp1 0DF4  
+     __end_of_corridorp2 0C0C                 isa$xinst 0000              ??_gamelogic 0009  

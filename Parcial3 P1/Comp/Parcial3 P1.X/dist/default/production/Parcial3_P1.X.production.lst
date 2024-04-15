@@ -1,0 +1,1028 @@
+
+
+Microchip MPLAB XC8 Assembler V2.45 build 20230818022343 
+                                                                                               Thu Mar 14 08:58:05 2024
+
+Microchip MPLAB XC8 C Compiler v2.45 (Free license) build 20230818022343 Og1 
+     1                           	processor	18F4550
+     2                           	fnconf	rparam,??,?,0
+     3                           	pagewidth 120
+     4                           	opt	flic
+     5                           	psect	smallconst,global,reloc=2,class=SMALLCONST,delta=1,noexec
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     8                           	psect	text0,global,reloc=2,class=CODE,delta=1
+     9                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    10                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    11                           	psect	text3,global,reloc=2,class=CODE,delta=1
+    12                           	psect	text4,global,reloc=2,class=CODE,delta=1
+    13                           	psect	text5,global,reloc=2,class=CODE,delta=1
+    14                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    15                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    16                           	psect	config,global,abs,ovrld,class=CONFIG,space=4,delta=1,noexec
+    17   000000                     
+    18                           ; Generated 23/03/2023 GMT
+    19                           ; 
+    20                           ; Copyright © 2023, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    21                           ; All rights reserved.
+    22                           ; 
+    23                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    24                           ; 
+    25                           ; Redistribution and use in source and binary forms, with or without modification, are
+    26                           ; permitted provided that the following conditions are met:
+    27                           ; 
+    28                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    29                           ;        conditions and the following disclaimer.
+    30                           ; 
+    31                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    32                           ;        of conditions and the following disclaimer in the documentation and/or other
+    33                           ;        materials provided with the distribution. Publication is not required when
+    34                           ;        this file is used in an embedded application.
+    35                           ; 
+    36                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    37                           ;        software without specific prior written permission.
+    38                           ; 
+    39                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    40                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    41                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    42                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    43                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    44                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    45                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    46                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    47                           ; 
+    48                           ; 
+    49                           ; Code-generator required, PIC18F4550 Definitions
+    50                           ; 
+    51                           ; SFR Addresses
+    52   000000                     _LATBbits	set	3978
+    53   000000                     _TRISBbits	set	3987
+    54   000000                     _LATB	set	3978
+    55   000000                     _TRISB	set	3987
+    56   000000                     _ADCON1	set	4033
+    57                           
+    58                           	psect	smallconst
+    59   000800                     __psmallconst:
+    60                           	callstack 0
+    61   000800  00                 	db	0
+    62   000801                     STR_2:
+    63   000801  49                 	db	73	;'I'
+    64   000802  53                 	db	83	;'S'
+    65   000803  48                 	db	72	;'H'
+    66   000804  4F                 	db	79	;'O'
+    67   000805  57                 	db	87	;'W'
+    68   000806  4D                 	db	77	;'M'
+    69   000807  45                 	db	69	;'E'
+    70   000808  41                 	db	65	;'A'
+    71   000809  54                 	db	84	;'T'
+    72   00080A  00                 	db	0
+    73   00080B                     STR_1:
+    74   00080B  4E                 	db	78	;'N'
+    75   00080C  20                 	db	32
+    76   00080D  57                 	db	87	;'W'
+    77   00080E  4F                 	db	79	;'O'
+    78   00080F  52                 	db	82	;'R'
+    79   000810  44                 	db	68	;'D'
+    80   000811  00                 	db	0
+    81   000812  00                 	db	0	; dummy byte at the end
+    82   000000                     
+    83                           ; #config settings
+    84                           
+    85                           	psect	cinit
+    86   00094A                     __pcinit:
+    87                           	callstack 0
+    88   00094A                     start_initialization:
+    89                           	callstack 0
+    90   00094A                     __initialization:
+    91                           	callstack 0
+    92   00094A                     end_of_initialization:
+    93                           	callstack 0
+    94   00094A                     __end_of__initialization:
+    95                           	callstack 0
+    96   00094A  0E00               	movlw	low (__Lsmallconst shr (0+16))
+    97   00094C  6EF8               	movwf	tblptru,c
+    98   00094E  0E08               	movlw	high __Lsmallconst
+    99   000950  6EF7               	movwf	tblptrh,c
+   100   000952  0100               	movlb	0
+   101   000954  EF0A  F004         	goto	_main	;jump to C main() function
+   102                           
+   103                           	psect	cstackCOMRAM
+   104   000001                     __pcstackCOMRAM:
+   105                           	callstack 0
+   106   000001                     LCDWriteNibble@b:
+   107                           	callstack 0
+   108                           
+   109                           ; 1 bytes @ 0x0
+   110   000001                     	ds	1
+   111   000002                     LCDWriteNibble@ch:
+   112                           	callstack 0
+   113                           
+   114                           ; 1 bytes @ 0x1
+   115   000002                     	ds	1
+   116   000003                     ??_LCDPutCmd:
+   117   000003                     ??_LCDPutChar:
+   118                           
+   119                           ; 1 bytes @ 0x2
+   120   000003                     	ds	1
+   121   000004                     LCDPutChar@ch:
+   122                           	callstack 0
+   123   000004                     LCDPutCmd@ch:
+   124                           	callstack 0
+   125                           
+   126                           ; 1 bytes @ 0x3
+   127   000004                     	ds	1
+   128   000005                     ??_LCDInit:
+   129   000005                     LCDPutStr@ptr:
+   130                           	callstack 0
+   131                           
+   132                           ; 1 bytes @ 0x4
+   133   000005                     	ds	1
+   134   000006                     ??_main:
+   135                           
+   136                           ; 1 bytes @ 0x5
+   137   000006                     	ds	2
+   138                           
+   139 ;;
+   140 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
+   141 ;;
+   142 ;; *************** function _main *****************
+   143 ;; Defined at:
+   144 ;;		line 14 in file "main.c"
+   145 ;; Parameters:    Size  Location     Type
+   146 ;;		None
+   147 ;; Auto vars:     Size  Location     Type
+   148 ;;		None
+   149 ;; Return value:  Size  Location     Type
+   150 ;;                  1    wreg      void 
+   151 ;; Registers used:
+   152 ;;		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+   153 ;; Tracked objects:
+   154 ;;		On entry : 0/0
+   155 ;;		On exit  : 0/0
+   156 ;;		Unchanged: 0/0
+   157 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   158 ;;      Params:         0       0       0       0       0       0       0       0       0
+   159 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   160 ;;      Temps:          2       0       0       0       0       0       0       0       0
+   161 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   162 ;;Total ram usage:        2 bytes
+   163 ;; Hardware stack levels required when called: 3
+   164 ;; This function calls:
+   165 ;;		_LCDInit
+   166 ;;		_LCDPutCmd
+   167 ;;		_LCDPutStr
+   168 ;; This function is called by:
+   169 ;;		Startup code after reset
+   170 ;; This function uses a non-reentrant model
+   171 ;;
+   172                           
+   173                           	psect	text0
+   174   000814                     __ptext0:
+   175                           	callstack 0
+   176   000814                     _main:
+   177                           	callstack 28
+   178   000814                     
+   179                           ;main.c: 15:     ADCON1 = 0X0F;
+   180   000814  0E0F               	movlw	15
+   181   000816  6EC1               	movwf	193,c	;volatile
+   182   000818                     
+   183                           ;main.c: 16:     LCDInit();
+   184   000818  EC2F  F004         	call	_LCDInit	;wreg free
+   185   00081C                     l856:
+   186                           
+   187                           ;main.c: 18:     LCDPutCmd(0x02);
+   188   00081C  0E02               	movlw	2
+   189   00081E  EC4C  F004         	call	_LCDPutCmd
+   190   000822                     
+   191                           ;main.c: 19:     LCDPutCmd(0x01);
+   192   000822  0E01               	movlw	1
+   193   000824  EC4C  F004         	call	_LCDPutCmd
+   194   000828                     
+   195                           ;main.c: 20:     LCDPutStr("N WORD");
+   196   000828  0E0B               	movlw	low STR_1
+   197   00082A  6E05               	movwf	LCDPutStr@ptr^0,c
+   198   00082C  EC66  F004         	call	_LCDPutStr	;wreg free
+   199   000830                     
+   200                           ;main.c: 21:     LCDPutCmd(0xC0);
+   201   000830  0EC0               	movlw	192
+   202   000832  EC4C  F004         	call	_LCDPutCmd
+   203   000836                     
+   204                           ;main.c: 22:     LCDPutStr("ISHOWMEAT");
+   205   000836  0E01               	movlw	low STR_2
+   206   000838  6E05               	movwf	LCDPutStr@ptr^0,c
+   207   00083A  EC66  F004         	call	_LCDPutStr	;wreg free
+   208   00083E                     
+   209                           ;main.c: 23:     _delay((unsigned long)((1000)*(20000000/4000.0)));
+   210   00083E  0E1A               	movlw	26
+   211   000840  6E07               	movwf	(??_main+1)^0,c
+   212   000842  0E5E               	movlw	94
+   213   000844  6E06               	movwf	??_main^0,c
+   214   000846  0E6E               	movlw	110
+   215   000848                     u57:
+   216   000848  2EE8               	decfsz	wreg,f,c
+   217   00084A  D7FE               	bra	u57
+   218   00084C  2E06               	decfsz	??_main^0,f,c
+   219   00084E  D7FC               	bra	u57
+   220   000850  2E07               	decfsz	(??_main+1)^0,f,c
+   221   000852  D7FA               	bra	u57
+   222   000854  D000               	nop2	
+   223   000856  EF0E  F004         	goto	l856
+   224   00085A  EF00  F000         	goto	start
+   225   00085E                     __end_of_main:
+   226                           	callstack 0
+   227                           
+   228 ;; *************** function _LCDPutStr *****************
+   229 ;; Defined at:
+   230 ;;		line 97 in file "C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c"
+   231 ;; Parameters:    Size  Location     Type
+   232 ;;  ptr             1    4[COMRAM] PTR unsigned char 
+   233 ;;		 -> STR_2(10), STR_1(7), 
+   234 ;; Auto vars:     Size  Location     Type
+   235 ;;		None
+   236 ;; Return value:  Size  Location     Type
+   237 ;;                  1    wreg      void 
+   238 ;; Registers used:
+   239 ;;		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+   240 ;; Tracked objects:
+   241 ;;		On entry : 0/0
+   242 ;;		On exit  : 0/0
+   243 ;;		Unchanged: 0/0
+   244 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   245 ;;      Params:         1       0       0       0       0       0       0       0       0
+   246 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   247 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   248 ;;      Totals:         1       0       0       0       0       0       0       0       0
+   249 ;;Total ram usage:        1 bytes
+   250 ;; Hardware stack levels used: 1
+   251 ;; Hardware stack levels required when called: 2
+   252 ;; This function calls:
+   253 ;;		_LCDPutChar
+   254 ;; This function is called by:
+   255 ;;		_main
+   256 ;; This function uses a non-reentrant model
+   257 ;;
+   258                           
+   259                           	psect	text1
+   260   0008CC                     __ptext1:
+   261                           	callstack 0
+   262   0008CC                     _LCDPutStr:
+   263                           	callstack 28
+   264   0008CC                     
+   265                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 97:     v
+      +                          oid LCDPutStr(unsigned char *ptr);C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/P
+      +                          arcial3 P1.X/LCD-XC4.c: 98:     {;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/P
+      +                          arcial3 P1.X/LCD-XC4.c: 99:         while(*ptr) LCDPutChar(*(ptr++));
+   266   0008CC  EF6F  F004         	goto	l850
+   267   0008D0                     l846:
+   268   0008D0  C005  FFF6         	movff	LCDPutStr@ptr,tblptrl
+   269   0008D4                     	if	0	;There is only one active tblptr byte
+   270   0008D4                     	endif
+   271   0008D4                     	if	0	;tblptru may be non-zero
+   272   0008D4                     	endif
+   273   0008D4                     	if	0	;tblptru may be non-zero
+   274   0008D4                     	endif
+   275   0008D4  0008               	tblrd		*
+   276   0008D6  50F5               	movf	tablat,w,c
+   277   0008D8  EC7C  F004         	call	_LCDPutChar
+   278   0008DC  2A05               	incf	LCDPutStr@ptr^0,f,c
+   279   0008DE                     l850:
+   280   0008DE  C005  FFF6         	movff	LCDPutStr@ptr,tblptrl
+   281   0008E2                     	if	0	;There is only one active tblptr byte
+   282   0008E2                     	endif
+   283   0008E2                     	if	0	;tblptru may be non-zero
+   284   0008E2                     	endif
+   285   0008E2                     	if	0	;tblptru may be non-zero
+   286   0008E2                     	endif
+   287   0008E2  0008               	tblrd		*
+   288   0008E4  50F5               	movf	tablat,w,c
+   289   0008E6  0900               	iorlw	0
+   290   0008E8  A4D8               	btfss	status,2,c
+   291   0008EA  EF79  F004         	goto	u41
+   292   0008EE  EF7B  F004         	goto	u40
+   293   0008F2                     u41:
+   294   0008F2  EF68  F004         	goto	l846
+   295   0008F6                     u40:
+   296   0008F6  0012               	return		;funcret
+   297   0008F8                     __end_of_LCDPutStr:
+   298                           	callstack 0
+   299                           
+   300 ;; *************** function _LCDPutChar *****************
+   301 ;; Defined at:
+   302 ;;		line 62 in file "C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c"
+   303 ;; Parameters:    Size  Location     Type
+   304 ;;  ch              1    wreg     unsigned char 
+   305 ;; Auto vars:     Size  Location     Type
+   306 ;;  ch              1    3[COMRAM] unsigned char 
+   307 ;; Return value:  Size  Location     Type
+   308 ;;                  1    wreg      void 
+   309 ;; Registers used:
+   310 ;;		wreg, status,2, status,0, cstack
+   311 ;; Tracked objects:
+   312 ;;		On entry : 0/0
+   313 ;;		On exit  : 0/0
+   314 ;;		Unchanged: 0/0
+   315 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   316 ;;      Params:         0       0       0       0       0       0       0       0       0
+   317 ;;      Locals:         1       0       0       0       0       0       0       0       0
+   318 ;;      Temps:          1       0       0       0       0       0       0       0       0
+   319 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   320 ;;Total ram usage:        2 bytes
+   321 ;; Hardware stack levels used: 1
+   322 ;; Hardware stack levels required when called: 1
+   323 ;; This function calls:
+   324 ;;		_LCDWriteNibble
+   325 ;; This function is called by:
+   326 ;;		_LCDPutStr
+   327 ;; This function uses a non-reentrant model
+   328 ;;
+   329                           
+   330                           	psect	text2
+   331   0008F8                     __ptext2:
+   332                           	callstack 0
+   333   0008F8                     _LCDPutChar:
+   334                           	callstack 28
+   335                           
+   336                           ;incstack = 0
+   337                           ;LCDPutChar@ch stored from wreg
+   338   0008F8  6E04               	movwf	LCDPutChar@ch^0,c
+   339   0008FA                     
+   340                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 62:     v
+      +                          oid LCDPutChar(unsigned char ch);C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Pa
+      +                          rcial3 P1.X/LCD-XC4.c: 63:     {;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Pa
+      +                          rcial3 P1.X/LCD-XC4.c: 64:         _delay((unsigned long)((5)*(2000000L/4000.0)));
+   341   0008FA  0E04               	movlw	4
+   342   0008FC  6E03               	movwf	??_LCDPutChar^0,c
+   343   0008FE  0E3E               	movlw	62
+   344   000900                     u67:
+   345   000900  2EE8               	decfsz	wreg,f,c
+   346   000902  D7FE               	bra	u67
+   347   000904  2E03               	decfsz	??_LCDPutChar^0,f,c
+   348   000906  D7FC               	bra	u67
+   349   000908                     
+   350                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 65:      
+      +                             LCDWriteNibble(ch,1);
+   351   000908  0E01               	movlw	1
+   352   00090A  6E01               	movwf	LCDWriteNibble@b^0,c
+   353   00090C  5004               	movf	LCDPutChar@ch^0,w,c
+   354   00090E  EC92  F004         	call	_LCDWriteNibble
+   355   000912                     
+   356                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 66:      
+      +                             ch = ch << 4;
+   357   000912  3804               	swapf	LCDPutChar@ch^0,w,c
+   358   000914  0BF0               	andlw	240
+   359   000916  6E04               	movwf	LCDPutChar@ch^0,c
+   360   000918                     
+   361                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 67:      
+      +                             LCDWriteNibble(ch,1);
+   362   000918  0E01               	movlw	1
+   363   00091A  6E01               	movwf	LCDWriteNibble@b^0,c
+   364   00091C  5004               	movf	LCDPutChar@ch^0,w,c
+   365   00091E  EC92  F004         	call	_LCDWriteNibble
+   366   000922  0012               	return		;funcret
+   367   000924                     __end_of_LCDPutChar:
+   368                           	callstack 0
+   369                           
+   370 ;; *************** function _LCDInit *****************
+   371 ;; Defined at:
+   372 ;;		line 5 in file "C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c"
+   373 ;; Parameters:    Size  Location     Type
+   374 ;;		None
+   375 ;; Auto vars:     Size  Location     Type
+   376 ;;		None
+   377 ;; Return value:  Size  Location     Type
+   378 ;;                  1    wreg      void 
+   379 ;; Registers used:
+   380 ;;		wreg, status,2, status,0, cstack
+   381 ;; Tracked objects:
+   382 ;;		On entry : 0/0
+   383 ;;		On exit  : 0/0
+   384 ;;		Unchanged: 0/0
+   385 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   386 ;;      Params:         0       0       0       0       0       0       0       0       0
+   387 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   388 ;;      Temps:          1       0       0       0       0       0       0       0       0
+   389 ;;      Totals:         1       0       0       0       0       0       0       0       0
+   390 ;;Total ram usage:        1 bytes
+   391 ;; Hardware stack levels used: 1
+   392 ;; Hardware stack levels required when called: 2
+   393 ;; This function calls:
+   394 ;;		_LCDPutCmd
+   395 ;; This function is called by:
+   396 ;;		_main
+   397 ;; This function uses a non-reentrant model
+   398 ;;
+   399                           
+   400                           	psect	text3
+   401   00085E                     __ptext3:
+   402                           	callstack 0
+   403   00085E                     _LCDInit:
+   404                           	callstack 28
+   405   00085E                     
+   406                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 15:      
+      +                             TRISB=0x0F;
+   407   00085E  0E0F               	movlw	15
+   408   000860  6E93               	movwf	147,c	;volatile
+   409   000862                     
+   410                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 16:      
+      +                             TRISBbits.RB2=0;
+   411   000862  9493               	bcf	147,2,c	;volatile
+   412   000864                     
+   413                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 17:      
+      +                             TRISBbits.RB1=0;
+   414   000864  9293               	bcf	147,1,c	;volatile
+   415   000866                     
+   416                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 18:      
+      +                             TRISBbits.RB0=0;
+   417   000866  9093               	bcf	147,0,c	;volatile
+   418   000868                     
+   419                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 21:      
+      +                             _delay((unsigned long)((15)*(2000000L/4000.0)));
+   420   000868  0E0A               	movlw	10
+   421   00086A  6E05               	movwf	??_LCDInit^0,c
+   422   00086C  0EBC               	movlw	188
+   423   00086E                     u77:
+   424   00086E  2EE8               	decfsz	wreg,f,c
+   425   000870  D7FE               	bra	u77
+   426   000872  2E05               	decfsz	??_LCDInit^0,f,c
+   427   000874  D7FC               	bra	u77
+   428   000876  D000               	nop2	
+   429   000878                     
+   430                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 22:      
+      +                             LCDPutCmd(0x32);
+   431   000878  0E32               	movlw	50
+   432   00087A  EC4C  F004         	call	_LCDPutCmd
+   433   00087E                     
+   434                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 23:      
+      +                             LCDPutCmd(0x28);
+   435   00087E  0E28               	movlw	40
+   436   000880  EC4C  F004         	call	_LCDPutCmd
+   437   000884                     
+   438                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 24:      
+      +                             LCDPutCmd(0x0C);
+   439   000884  0E0C               	movlw	12
+   440   000886  EC4C  F004         	call	_LCDPutCmd
+   441   00088A                     
+   442                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 25:      
+      +                             LCDPutCmd(0x01);
+   443   00088A  0E01               	movlw	1
+   444   00088C  EC4C  F004         	call	_LCDPutCmd
+   445   000890                     
+   446                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 26:      
+      +                             LCDPutCmd(0x06);
+   447   000890  0E06               	movlw	6
+   448   000892  EC4C  F004         	call	_LCDPutCmd
+   449   000896  0012               	return		;funcret
+   450   000898                     __end_of_LCDInit:
+   451                           	callstack 0
+   452                           
+   453 ;; *************** function _LCDPutCmd *****************
+   454 ;; Defined at:
+   455 ;;		line 79 in file "C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c"
+   456 ;; Parameters:    Size  Location     Type
+   457 ;;  ch              1    wreg     unsigned char 
+   458 ;; Auto vars:     Size  Location     Type
+   459 ;;  ch              1    3[COMRAM] unsigned char 
+   460 ;; Return value:  Size  Location     Type
+   461 ;;                  1    wreg      void 
+   462 ;; Registers used:
+   463 ;;		wreg, status,2, status,0, cstack
+   464 ;; Tracked objects:
+   465 ;;		On entry : 0/0
+   466 ;;		On exit  : 0/0
+   467 ;;		Unchanged: 0/0
+   468 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   469 ;;      Params:         0       0       0       0       0       0       0       0       0
+   470 ;;      Locals:         1       0       0       0       0       0       0       0       0
+   471 ;;      Temps:          1       0       0       0       0       0       0       0       0
+   472 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   473 ;;Total ram usage:        2 bytes
+   474 ;; Hardware stack levels used: 1
+   475 ;; Hardware stack levels required when called: 1
+   476 ;; This function calls:
+   477 ;;		_LCDWriteNibble
+   478 ;; This function is called by:
+   479 ;;		_main
+   480 ;;		_LCDInit
+   481 ;; This function uses a non-reentrant model
+   482 ;;
+   483                           
+   484                           	psect	text4
+   485   000898                     __ptext4:
+   486                           	callstack 0
+   487   000898                     _LCDPutCmd:
+   488                           	callstack 29
+   489                           
+   490                           ;incstack = 0
+   491                           ;LCDPutCmd@ch stored from wreg
+   492   000898  6E04               	movwf	LCDPutCmd@ch^0,c
+   493   00089A                     
+   494                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 79:     v
+      +                          oid LCDPutCmd(unsigned char ch);C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Par
+      +                          cial3 P1.X/LCD-XC4.c: 80:     {;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Par
+      +                          cial3 P1.X/LCD-XC4.c: 81:         _delay((unsigned long)((5)*(2000000L/4000.0)));
+   495   00089A  0E04               	movlw	4
+   496   00089C  6E03               	movwf	??_LCDPutCmd^0,c
+   497   00089E  0E3E               	movlw	62
+   498   0008A0                     u87:
+   499   0008A0  2EE8               	decfsz	wreg,f,c
+   500   0008A2  D7FE               	bra	u87
+   501   0008A4  2E03               	decfsz	??_LCDPutCmd^0,f,c
+   502   0008A6  D7FC               	bra	u87
+   503   0008A8                     
+   504                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 82:      
+      +                             LCDWriteNibble(ch,0);
+   505   0008A8  0E00               	movlw	0
+   506   0008AA  6E01               	movwf	LCDWriteNibble@b^0,c
+   507   0008AC  5004               	movf	LCDPutCmd@ch^0,w,c
+   508   0008AE  EC92  F004         	call	_LCDWriteNibble
+   509   0008B2                     
+   510                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 83:      
+      +                             ch = ch << 4;
+   511   0008B2  3804               	swapf	LCDPutCmd@ch^0,w,c
+   512   0008B4  0BF0               	andlw	240
+   513   0008B6  6E04               	movwf	LCDPutCmd@ch^0,c
+   514   0008B8                     
+   515                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 84:      
+      +                             _delay((unsigned long)((1)*(2000000L/4000.0)));
+   516   0008B8  0EA6               	movlw	166
+   517   0008BA                     u97:
+   518   0008BA  2EE8               	decfsz	wreg,f,c
+   519   0008BC  D7FE               	bra	u97
+   520   0008BE  D000               	nop2	
+   521   0008C0                     
+   522                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 85:      
+      +                             LCDWriteNibble(ch,0);
+   523   0008C0  0E00               	movlw	0
+   524   0008C2  6E01               	movwf	LCDWriteNibble@b^0,c
+   525   0008C4  5004               	movf	LCDPutCmd@ch^0,w,c
+   526   0008C6  EC92  F004         	call	_LCDWriteNibble
+   527   0008CA  0012               	return		;funcret
+   528   0008CC                     __end_of_LCDPutCmd:
+   529                           	callstack 0
+   530                           
+   531 ;; *************** function _LCDWriteNibble *****************
+   532 ;; Defined at:
+   533 ;;		line 39 in file "C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c"
+   534 ;; Parameters:    Size  Location     Type
+   535 ;;  ch              1    wreg     unsigned char 
+   536 ;;  b               1    0[COMRAM] unsigned char 
+   537 ;; Auto vars:     Size  Location     Type
+   538 ;;  ch              1    1[COMRAM] unsigned char 
+   539 ;; Return value:  Size  Location     Type
+   540 ;;                  1    wreg      void 
+   541 ;; Registers used:
+   542 ;;		wreg, status,2, status,0
+   543 ;; Tracked objects:
+   544 ;;		On entry : 0/0
+   545 ;;		On exit  : 0/0
+   546 ;;		Unchanged: 0/0
+   547 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   548 ;;      Params:         1       0       0       0       0       0       0       0       0
+   549 ;;      Locals:         1       0       0       0       0       0       0       0       0
+   550 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   551 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   552 ;;Total ram usage:        2 bytes
+   553 ;; Hardware stack levels used: 1
+   554 ;; This function calls:
+   555 ;;		Nothing
+   556 ;; This function is called by:
+   557 ;;		_LCDPutChar
+   558 ;;		_LCDPutCmd
+   559 ;; This function uses a non-reentrant model
+   560 ;;
+   561                           
+   562                           	psect	text5
+   563   000924                     __ptext5:
+   564                           	callstack 0
+   565   000924                     _LCDWriteNibble:
+   566                           	callstack 28
+   567                           
+   568                           ;incstack = 0
+   569                           ;LCDWriteNibble@ch stored from wreg
+   570   000924  6E02               	movwf	LCDWriteNibble@ch^0,c
+   571   000926                     
+   572                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 39:     v
+      +                          oid LCDWriteNibble(unsigned char ch,unsigned char b);C:/Users/Adriamuz/Desktop/EDA/MPLAB
+      +                          /Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 40:     {;C:/Users/Adriamuz/Desktop/EDA/MPLAB
+      +                          /Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 42:         ch = ch & 0xF0;
+   573   000926  5002               	movf	LCDWriteNibble@ch^0,w,c
+   574   000928  0BF0               	andlw	240
+   575   00092A  6E02               	movwf	LCDWriteNibble@ch^0,c
+   576                           
+   577                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 44:      
+      +                             LATB = LATB & 0x0F;
+   578   00092C  508A               	movf	138,w,c	;volatile
+   579   00092E  0B0F               	andlw	15
+   580   000930  6E8A               	movwf	138,c	;volatile
+   581                           
+   582                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 45:      
+      +                             LATB = LATB | ch;
+   583   000932  508A               	movf	138,w,c	;volatile
+   584   000934  1002               	iorwf	LCDWriteNibble@ch^0,w,c
+   585   000936  6E8A               	movwf	138,c	;volatile
+   586   000938                     
+   587                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 47:      
+      +                             LATBbits.LB0 = b;
+   588   000938  B001               	btfsc	LCDWriteNibble@b^0,0,c
+   589   00093A  D002               	bra	u35
+   590   00093C  908A               	bcf	138,0,c	;volatile
+   591   00093E  D001               	bra	u36
+   592   000940                     u35:
+   593   000940  808A               	bsf	138,0,c	;volatile
+   594   000942                     u36:
+   595   000942                     
+   596                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 48:      
+      +                             LATBbits.LB1 = 0;
+   597   000942  928A               	bcf	138,1,c	;volatile
+   598   000944                     
+   599                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 49:      
+      +                             LATBbits.LB2 = 1;
+   600   000944  848A               	bsf	138,2,c	;volatile
+   601   000946                     
+   602                           ;C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P1/Comp/Parcial3 P1.X/LCD-XC4.c: 50:      
+      +                             LATBbits.LB2 = 0;
+   603   000946  948A               	bcf	138,2,c	;volatile
+   604   000948  0012               	return		;funcret
+   605   00094A                     __end_of_LCDWriteNibble:
+   606                           	callstack 0
+   607                           
+   608                           	psect	rparam
+   609   000000                     
+   610                           	psect	config
+   611                           
+   612                           ;Config register CONFIG1L @ 0x300000
+   613                           ;	PLL Prescaler Selection bits
+   614                           ;	PLLDIV = 1, No prescale (4 MHz oscillator input drives PLL directly)
+   615                           ;	System Clock Postscaler Selection bits
+   616                           ;	CPUDIV = OSC1_PLL2, [Primary Oscillator Src: /1][96 MHz PLL Src: /2]
+   617                           ;	USB Clock Selection bit (used in Full-Speed USB mode only; UCFG:FSEN = 1)
+   618                           ;	USBDIV = 1, USB clock source comes directly from the primary oscillator block with no 
+      +                          postscale
+   619   300000                     	org	3145728
+   620   300000  00                 	db	0
+   621                           
+   622                           ;Config register CONFIG1H @ 0x300001
+   623                           ;	Oscillator Selection bits
+   624                           ;	FOSC = HS, HS oscillator (HS)
+   625                           ;	Fail-Safe Clock Monitor Enable bit
+   626                           ;	FCMEN = OFF, Fail-Safe Clock Monitor disabled
+   627                           ;	Internal/External Oscillator Switchover bit
+   628                           ;	IESO = OFF, Oscillator Switchover mode disabled
+   629   300001                     	org	3145729
+   630   300001  0C                 	db	12
+   631                           
+   632                           ;Config register CONFIG2L @ 0x300002
+   633                           ;	Power-up Timer Enable bit
+   634                           ;	PWRT = OFF, PWRT disabled
+   635                           ;	Brown-out Reset Enable bits
+   636                           ;	BOR = ON, Brown-out Reset enabled in hardware only (SBOREN is disabled)
+   637                           ;	Brown-out Reset Voltage bits
+   638                           ;	BORV = 3, Minimum setting 2.05V
+   639                           ;	USB Voltage Regulator Enable bit
+   640                           ;	VREGEN = OFF, USB voltage regulator disabled
+   641   300002                     	org	3145730
+   642   300002  1F                 	db	31
+   643                           
+   644                           ;Config register CONFIG2H @ 0x300003
+   645                           ;	Watchdog Timer Enable bit
+   646                           ;	WDT = ON, WDT enabled
+   647                           ;	Watchdog Timer Postscale Select bits
+   648                           ;	WDTPS = 32768, 1:32768
+   649   300003                     	org	3145731
+   650   300003  1F                 	db	31
+   651                           
+   652                           ; Padding undefined space
+   653   300004                     	org	3145732
+   654   300004  FF                 	db	255
+   655                           
+   656                           ;Config register CONFIG3H @ 0x300005
+   657                           ;	CCP2 MUX bit
+   658                           ;	CCP2MX = ON, CCP2 input/output is multiplexed with RC1
+   659                           ;	PORTB A/D Enable bit
+   660                           ;	PBADEN = ON, PORTB<4:0> pins are configured as analog input channels on Reset
+   661                           ;	Low-Power Timer 1 Oscillator Enable bit
+   662                           ;	LPT1OSC = OFF, Timer1 configured for higher power operation
+   663                           ;	MCLR Pin Enable bit
+   664                           ;	MCLRE = ON, MCLR pin enabled; RE3 input pin disabled
+   665   300005                     	org	3145733
+   666   300005  83                 	db	131
+   667                           
+   668                           ;Config register CONFIG4L @ 0x300006
+   669                           ;	Stack Full/Underflow Reset Enable bit
+   670                           ;	STVREN = ON, Stack full/underflow will cause Reset
+   671                           ;	Single-Supply ICSP Enable bit
+   672                           ;	LVP = ON, Single-Supply ICSP enabled
+   673                           ;	Dedicated In-Circuit Debug/Programming Port (ICPORT) Enable bit
+   674                           ;	ICPRT = OFF, ICPORT disabled
+   675                           ;	Extended Instruction Set Enable bit
+   676                           ;	XINST = OFF, Instruction set extension and Indexed Addressing mode disabled (Legacy mo
+      +                          de)
+   677                           ;	Background Debugger Enable bit
+   678                           ;	DEBUG = 0x1, unprogrammed default
+   679   300006                     	org	3145734
+   680   300006  85                 	db	133
+   681                           
+   682                           ; Padding undefined space
+   683   300007                     	org	3145735
+   684   300007  FF                 	db	255
+   685                           
+   686                           ;Config register CONFIG5L @ 0x300008
+   687                           ;	Code Protection bit
+   688                           ;	CP0 = OFF, Block 0 (000800-001FFFh) is not code-protected
+   689                           ;	Code Protection bit
+   690                           ;	CP1 = OFF, Block 1 (002000-003FFFh) is not code-protected
+   691                           ;	Code Protection bit
+   692                           ;	CP2 = OFF, Block 2 (004000-005FFFh) is not code-protected
+   693                           ;	Code Protection bit
+   694                           ;	CP3 = OFF, Block 3 (006000-007FFFh) is not code-protected
+   695   300008                     	org	3145736
+   696   300008  0F                 	db	15
+   697                           
+   698                           ;Config register CONFIG5H @ 0x300009
+   699                           ;	Boot Block Code Protection bit
+   700                           ;	CPB = OFF, Boot block (000000-0007FFh) is not code-protected
+   701                           ;	Data EEPROM Code Protection bit
+   702                           ;	CPD = OFF, Data EEPROM is not code-protected
+   703   300009                     	org	3145737
+   704   300009  C0                 	db	192
+   705                           
+   706                           ;Config register CONFIG6L @ 0x30000A
+   707                           ;	Write Protection bit
+   708                           ;	WRT0 = OFF, Block 0 (000800-001FFFh) is not write-protected
+   709                           ;	Write Protection bit
+   710                           ;	WRT1 = OFF, Block 1 (002000-003FFFh) is not write-protected
+   711                           ;	Write Protection bit
+   712                           ;	WRT2 = OFF, Block 2 (004000-005FFFh) is not write-protected
+   713                           ;	Write Protection bit
+   714                           ;	WRT3 = OFF, Block 3 (006000-007FFFh) is not write-protected
+   715   30000A                     	org	3145738
+   716   30000A  0F                 	db	15
+   717                           
+   718                           ;Config register CONFIG6H @ 0x30000B
+   719                           ;	Configuration Register Write Protection bit
+   720                           ;	WRTC = OFF, Configuration registers (300000-3000FFh) are not write-protected
+   721                           ;	Boot Block Write Protection bit
+   722                           ;	WRTB = OFF, Boot block (000000-0007FFh) is not write-protected
+   723                           ;	Data EEPROM Write Protection bit
+   724                           ;	WRTD = OFF, Data EEPROM is not write-protected
+   725   30000B                     	org	3145739
+   726   30000B  E0                 	db	224
+   727                           
+   728                           ;Config register CONFIG7L @ 0x30000C
+   729                           ;	Table Read Protection bit
+   730                           ;	EBTR0 = OFF, Block 0 (000800-001FFFh) is not protected from table reads executed in ot
+      +                          her blocks
+   731                           ;	Table Read Protection bit
+   732                           ;	EBTR1 = OFF, Block 1 (002000-003FFFh) is not protected from table reads executed in ot
+      +                          her blocks
+   733                           ;	Table Read Protection bit
+   734                           ;	EBTR2 = OFF, Block 2 (004000-005FFFh) is not protected from table reads executed in ot
+      +                          her blocks
+   735                           ;	Table Read Protection bit
+   736                           ;	EBTR3 = OFF, Block 3 (006000-007FFFh) is not protected from table reads executed in ot
+      +                          her blocks
+   737   30000C                     	org	3145740
+   738   30000C  0F                 	db	15
+   739                           
+   740                           ;Config register CONFIG7H @ 0x30000D
+   741                           ;	Boot Block Table Read Protection bit
+   742                           ;	EBTRB = OFF, Boot block (000000-0007FFh) is not protected from table reads executed in
+      +                           other blocks
+   743   30000D                     	org	3145741
+   744   30000D  40                 	db	64
+   745                           tosu	equ	0xFFF
+   746                           tosh	equ	0xFFE
+   747                           tosl	equ	0xFFD
+   748                           stkptr	equ	0xFFC
+   749                           pclatu	equ	0xFFB
+   750                           pclath	equ	0xFFA
+   751                           pcl	equ	0xFF9
+   752                           tblptru	equ	0xFF8
+   753                           tblptrh	equ	0xFF7
+   754                           tblptrl	equ	0xFF6
+   755                           tablat	equ	0xFF5
+   756                           prodh	equ	0xFF4
+   757                           prodl	equ	0xFF3
+   758                           indf0	equ	0xFEF
+   759                           postinc0	equ	0xFEE
+   760                           postdec0	equ	0xFED
+   761                           preinc0	equ	0xFEC
+   762                           plusw0	equ	0xFEB
+   763                           fsr0h	equ	0xFEA
+   764                           fsr0l	equ	0xFE9
+   765                           wreg	equ	0xFE8
+   766                           indf1	equ	0xFE7
+   767                           postinc1	equ	0xFE6
+   768                           postdec1	equ	0xFE5
+   769                           preinc1	equ	0xFE4
+   770                           plusw1	equ	0xFE3
+   771                           fsr1h	equ	0xFE2
+   772                           fsr1l	equ	0xFE1
+   773                           bsr	equ	0xFE0
+   774                           indf2	equ	0xFDF
+   775                           postinc2	equ	0xFDE
+   776                           postdec2	equ	0xFDD
+   777                           preinc2	equ	0xFDC
+   778                           plusw2	equ	0xFDB
+   779                           fsr2h	equ	0xFDA
+   780                           fsr2l	equ	0xFD9
+   781                           status	equ	0xFD8
+
+Data Sizes:
+    Strings     17
+    Constant    0
+    Data        0
+    BSS         0
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95      7       7
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+
+Pointer List with Targets:
+
+    LCDPutStr@ptr	PTR unsigned char  size(1) Largest target is 10
+		 -> STR_1(CODE[7]), STR_2(CODE[10]), 
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_LCDInit
+    _main->_LCDPutStr
+    _LCDPutStr->_LCDPutChar
+    _LCDPutChar->_LCDWriteNibble
+    _LCDInit->_LCDPutCmd
+    _LCDPutCmd->_LCDWriteNibble
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 2     2      0    1511
+                                              5 COMRAM     2     2      0
+                            _LCDInit
+                          _LCDPutCmd
+                          _LCDPutStr
+ ---------------------------------------------------------------------------------
+ (1) _LCDPutStr                                            1     0      1     635
+                                              4 COMRAM     1     0      1
+                         _LCDPutChar
+ ---------------------------------------------------------------------------------
+ (2) _LCDPutChar                                           2     2      0     438
+                                              2 COMRAM     2     2      0
+                     _LCDWriteNibble
+ ---------------------------------------------------------------------------------
+ (1) _LCDInit                                              1     1      0     438
+                                              4 COMRAM     1     1      0
+                          _LCDPutCmd
+ ---------------------------------------------------------------------------------
+ (1) _LCDPutCmd                                            2     2      0     438
+                                              2 COMRAM     2     2      0
+                     _LCDWriteNibble
+ ---------------------------------------------------------------------------------
+ (3) _LCDWriteNibble                                       2     1      1     371
+                                              0 COMRAM     2     1      1
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 3
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _LCDInit
+     _LCDPutCmd
+       _LCDWriteNibble
+   _LCDPutCmd
+   _LCDPutStr
+     _LCDPutChar
+       _LCDWriteNibble
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BITCOMRAM           5F      0       0       0        0.0%
+EEDATA             100      0       0       0        0.0%
+NULL                 0      0       0       0        0.0%
+CODE                 0      0       0       0        0.0%
+COMRAM              5F      7       7       1        7.4%
+STACK                0      0       0       2        0.0%
+DATA                 0      0       0       3        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BITBANK3           100      0       0      10        0.0%
+BANK3              100      0       0      11        0.0%
+BITBANK4           100      0       0      12        0.0%
+BANK4              100      0       0      13        0.0%
+BITBANK5           100      0       0      14        0.0%
+BANK5              100      0       0      15        0.0%
+BITBANK6           100      0       0      16        0.0%
+BANK6              100      0       0      17        0.0%
+BITBANK7           100      0       0      18        0.0%
+BANK7              100      0       0      19        0.0%
+BITBIGSFRh          3E      0       0      20        0.0%
+BITBIGSFRlh         2D      0       0      21        0.0%
+BITBIGSFRllh         8      0       0      22        0.0%
+BITBIGSFRlll        2A      0       0      23        0.0%
+ABS                  0      0       0      24        0.0%
+BIGRAM             7FF      0       0      25        0.0%
+BIGSFR               0      0       0     200        0.0%
+BITSFR               0      0       0     200        0.0%
+SFR                  0      0       0     200        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V2.45 build 20230818022343 
+Symbol Table                                                                                   Thu Mar 14 08:58:05 2024
+
+                     l33 0896                       l42 08CA              ?_LCDPutChar 0001  
+                     l36 0948                       l39 0922                       l48 08F6  
+                     u40 08F6                       u41 08F2                       u35 0940  
+                     u36 0942                       u57 0848                       u67 0900  
+                     u77 086E                       u87 08A0                       u97 08BA  
+                    l800 0942                      l802 0944                      l810 08B2  
+                    l804 0946                      l812 08B8                      l820 0912  
+                    l814 08C0                      l806 089A                      l830 0866  
+                    l822 0918                      l808 08A8                      l840 088A  
+                    l832 0868                      l824 085E                      l816 08FA  
+                    l842 0890                      l834 0878                      l826 0862  
+                    l818 0908                      l850 08DE                      l836 087E  
+                    l828 0864                      l844 08CC                      l860 0828  
+                    l852 0814                      l838 0884                      l846 08D0  
+                    l862 0830                      l854 0818                      l848 08DC  
+                    l864 0836                      l856 081C                      l866 083E  
+                    l858 0822                      l796 0926                      l798 0938  
+                    wreg 0FE8          __end_of_LCDInit 0898                     STR_1 080B  
+                   STR_2 0801                     _LATB 0F8A                     _main 0814  
+                   start 0000             ___param_bank 0000              LCDPutCmd@ch 0004  
+                  ?_main 0001                    _TRISB 0F93                    tablat 0FF5  
+                  status 0FD8          __initialization 094A             __end_of_main 085E  
+                 ??_main 0006            __activetblptr 0001                ??_LCDInit 0005  
+      __end_of_LCDPutCmd 08CC             LCDPutChar@ch 0004        __end_of_LCDPutStr 08F8  
+                 _ADCON1 0FC1             LCDPutStr@ptr 0005           _LCDWriteNibble 0924  
+                 isa$std 0001             __mediumconst 0000                   tblptrh 0FF7  
+                 tblptrl 0FF6                   tblptru 0FF8   __end_of_LCDWriteNibble 094A  
+             __accesstop 0060  __end_of__initialization 094A            ___rparam_used 0001  
+         __pcstackCOMRAM 0001             ??_LCDPutChar 0003          ?_LCDWriteNibble 0001  
+     __end_of_LCDPutChar 0924                  _LCDInit 085E                  __Hparam 0000  
+                __Lparam 0000             __psmallconst 0800                  __pcinit 094A  
+                __ramtop 0800                  __ptext0 0814                  __ptext1 08CC  
+                __ptext2 08F8                  __ptext3 085E                  __ptext4 0898  
+                __ptext5 0924                _LCDPutCmd 0898                _LCDPutStr 08CC  
+   end_of_initialization 094A                _TRISBbits 0F93               ?_LCDPutCmd 0001  
+             ?_LCDPutStr 0005      start_initialization 094A         ??_LCDWriteNibble 0002  
+               ?_LCDInit 0001              ??_LCDPutCmd 0003              ??_LCDPutStr 0006  
+       LCDWriteNibble@ch 0002              __smallconst 0800                 _LATBbits 0F8A  
+               __Hrparam 0000                 __Lrparam 0000             __Lsmallconst 0800  
+        LCDWriteNibble@b 0001                 isa$xinst 0000               _LCDPutChar 08F8  

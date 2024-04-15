@@ -1,0 +1,199 @@
+[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F4550 ]
+[d frameptr 4065 ]
+"5 C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P2/Comp/Parcial3 P2.X/LCD-XC4.c
+[v _LCDInit LCDInit `(v  1 e 1 0 ]
+"39
+[v _LCDWriteNibble LCDWriteNibble `(v  1 e 1 0 ]
+"62
+[v _LCDPutChar LCDPutChar `(v  1 e 1 0 ]
+"79
+[v _LCDPutCmd LCDPutCmd `(v  1 e 1 0 ]
+"97
+[v _LCDPutStr LCDPutStr `(v  1 e 1 0 ]
+"19 C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P2/Comp/Parcial3 P2.X/main.c
+[v _main main `(v  1 e 1 0 ]
+"32
+[v _ADC_init ADC_init `(v  1 e 1 0 ]
+"41
+[v _ADC_read ADC_read `(i  1 e 2 0 ]
+"4 C:\Program Files\Microchip\xc8\v2.45\pic\sources\c99\common\fleq.c
+[v ___fleq __fleq `(b  1 e 0 0 ]
+"62 C:\Program Files\Microchip\xc8\v2.45\pic\sources\c99\common\float.c
+[v ___ftpack __ftpack `(f  1 e 4 0 ]
+"86 C:\Program Files\Microchip\xc8\v2.45\pic\sources\c99\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 4 0 ]
+"54 C:\Program Files\Microchip\xc8\v2.45\pic\sources\c99\common\ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 4 0 ]
+"62 C:\Program Files\Microchip\xc8\v2.45\pic\sources\c99\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 4 0 ]
+"19 C:\Program Files\Microchip\xc8\v2.45\pic\sources\c99\common\ftsub.c
+[v ___ftsub __ftsub `(f  1 e 4 0 ]
+"10 C:\Program Files\Microchip\xc8\v2.45\pic\sources\c99\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"245
+[v ___flsub __flsub `(d  1 e 4 0 ]
+"11 C:\Program Files\Microchip\xc8\v2.45\pic\sources\c99\common\sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 4 0 ]
+"8 C:\Program Files\Microchip\xc8\v2.45\pic\sources\c99\common\sprcmul.c
+[v ___flmul __flmul `(d  1 e 4 0 ]
+"15 C:\Program Files\Microchip\xc8\v2.45\pic\sources\c99\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"91 C:\Program Files\Microchip\xc8\v2.45\pic\sources\c99\common\Umul64.c
+[v ___omul __omul `(uo  1 e 8 0 ]
+"3073 C:/Program Files/Microchip/MPLABX/v6.15/packs/Microchip/PIC18Fxxxx_DFP/1.4.151/xc8\pic\include\proc\pic18f4550.h
+[v _LATB LATB `VEuc  1 e 1 @3978 ]
+[s S188 . 1 `uc 1 LATB0 1 0 :1:0 
+`uc 1 LATB1 1 0 :1:1 
+`uc 1 LATB2 1 0 :1:2 
+`uc 1 LATB3 1 0 :1:3 
+`uc 1 LATB4 1 0 :1:4 
+`uc 1 LATB5 1 0 :1:5 
+`uc 1 LATB6 1 0 :1:6 
+`uc 1 LATB7 1 0 :1:7 
+]
+"3100
+[s S197 . 1 `uc 1 LB0 1 0 :1:0 
+`uc 1 LB1 1 0 :1:1 
+`uc 1 LB2 1 0 :1:2 
+`uc 1 LB3 1 0 :1:3 
+`uc 1 LB4 1 0 :1:4 
+`uc 1 LB5 1 0 :1:5 
+`uc 1 LB6 1 0 :1:6 
+`uc 1 LB7 1 0 :1:7 
+]
+[u S206 . 1 `S188 1 . 1 0 `S197 1 . 1 0 ]
+[v _LATBbits LATBbits `VES206  1 e 1 @3978 ]
+"3427
+[v _TRISA TRISA `VEuc  1 e 1 @3986 ]
+"3625
+[v _TRISB TRISB `VEuc  1 e 1 @3987 ]
+[s S144 . 1 `uc 1 TRISB0 1 0 :1:0 
+`uc 1 TRISB1 1 0 :1:1 
+`uc 1 TRISB2 1 0 :1:2 
+`uc 1 TRISB3 1 0 :1:3 
+`uc 1 TRISB4 1 0 :1:4 
+`uc 1 TRISB5 1 0 :1:5 
+`uc 1 TRISB6 1 0 :1:6 
+`uc 1 TRISB7 1 0 :1:7 
+]
+"3657
+[s S153 . 1 `uc 1 RB0 1 0 :1:0 
+`uc 1 RB1 1 0 :1:1 
+`uc 1 RB2 1 0 :1:2 
+`uc 1 RB3 1 0 :1:3 
+`uc 1 RB4 1 0 :1:4 
+`uc 1 RB5 1 0 :1:5 
+`uc 1 RB6 1 0 :1:6 
+`uc 1 RB7 1 0 :1:7 
+]
+[u S162 . 1 `S144 1 . 1 0 `S153 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES162  1 e 1 @3987 ]
+"6510
+[v _ADCON2 ADCON2 `VEuc  1 e 1 @4032 ]
+"6581
+[v _ADCON1 ADCON1 `VEuc  1 e 1 @4033 ]
+"6666
+[v _ADCON0 ADCON0 `VEuc  1 e 1 @4034 ]
+[s S61 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GO_NOT_DONE 1 0 :1:1 
+]
+"6710
+[s S64 . 1 `uc 1 ADON 1 0 :1:0 
+`uc 1 GO_nDONE 1 0 :1:1 
+`uc 1 CHS 1 0 :4:2 
+]
+[s S68 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GO_DONE 1 0 :1:1 
+`uc 1 CHS0 1 0 :1:2 
+`uc 1 CHS1 1 0 :1:3 
+`uc 1 CHS2 1 0 :1:4 
+`uc 1 CHS3 1 0 :1:5 
+]
+[s S75 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 DONE 1 0 :1:1 
+]
+[s S78 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GO 1 0 :1:1 
+]
+[s S81 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 NOT_DONE 1 0 :1:1 
+]
+[s S84 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 nDONE 1 0 :1:1 
+]
+[s S87 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GODONE 1 0 :1:1 
+]
+[u S90 . 1 `S61 1 . 1 0 `S64 1 . 1 0 `S68 1 . 1 0 `S75 1 . 1 0 `S78 1 . 1 0 `S81 1 . 1 0 `S84 1 . 1 0 `S87 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES90  1 e 1 @4034 ]
+"6792
+[v _ADRESL ADRESL `VEuc  1 e 1 @4035 ]
+"6799
+[v _ADRESH ADRESH `VEuc  1 e 1 @4036 ]
+"8986
+[v _ADON ADON `VEb  1 e 0 @32272 ]
+"9757
+[v _GO GO `VEb  1 e 0 @32273 ]
+"17 C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P2/Comp/Parcial3 P2.X/main.c
+[v _v1 v1 `i  1 e 2 0 ]
+"19
+[v _main main `(v  1 e 1 0 ]
+{
+"30
+} 0
+"97 C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P2/Comp/Parcial3 P2.X/LCD-XC4.c
+[v _LCDPutStr LCDPutStr `(v  1 e 1 0 ]
+{
+[v LCDPutStr@ptr ptr `*.39uc  1 p 2 4 ]
+"100
+} 0
+"62
+[v _LCDPutChar LCDPutChar `(v  1 e 1 0 ]
+{
+[v LCDPutChar@ch ch `uc  1 a 1 wreg ]
+[v LCDPutChar@ch ch `uc  1 a 1 wreg ]
+"64
+[v LCDPutChar@ch ch `uc  1 a 1 3 ]
+"68
+} 0
+"5
+[v _LCDInit LCDInit `(v  1 e 1 0 ]
+{
+"27
+} 0
+"79
+[v _LCDPutCmd LCDPutCmd `(v  1 e 1 0 ]
+{
+[v LCDPutCmd@ch ch `uc  1 a 1 wreg ]
+[v LCDPutCmd@ch ch `uc  1 a 1 wreg ]
+"81
+[v LCDPutCmd@ch ch `uc  1 a 1 3 ]
+"86
+} 0
+"39
+[v _LCDWriteNibble LCDWriteNibble `(v  1 e 1 0 ]
+{
+[v LCDWriteNibble@ch ch `uc  1 a 1 wreg ]
+[v LCDWriteNibble@ch ch `uc  1 a 1 wreg ]
+[v LCDWriteNibble@b b `uc  1 p 1 0 ]
+"42
+[v LCDWriteNibble@ch ch `uc  1 a 1 1 ]
+"51
+} 0
+"41 C:/Users/Adriamuz/Desktop/EDA/MPLAB/Parcial3 P2/Comp/Parcial3 P2.X/main.c
+[v _ADC_read ADC_read `(i  1 e 2 0 ]
+{
+"42
+[v ADC_read@digital digital `i  1 a 2 6 ]
+"41
+[v ADC_read@chanel chanel `i  1 p 2 0 ]
+"48
+} 0
+"32
+[v _ADC_init ADC_init `(v  1 e 1 0 ]
+{
+"39
+} 0
